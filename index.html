@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -370,6 +371,36 @@
       }
     }
 
+    /* SHARED CLASS CONTROLS */
+
+    .class-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .class-controls label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .class-controls select,
+    .class-controls button {
+      border: none;
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.16rem 0.32rem;
+      font-weight: 800;
+    }
+
+    .class-controls option {
+      background: var(--bg);
+      color: var(--text);
+    }
+
     /* NAME PICKER */
 
     #names-tool {
@@ -386,9 +417,14 @@
         sans-serif;
     }
 
+    .names-controls {
+      padding-top: 1.45rem;
+      min-height: 3rem;
+    }
+
     #name-skip-indicator {
       position: absolute;
-      top: 0.75rem;
+      top: 0.72rem;
       left: 50%;
       transform: translateX(-50%);
       opacity: 0;
@@ -684,6 +720,10 @@
         font-size: clamp(5rem, 24vw, 10rem);
       }
 
+      .names-controls {
+        padding-top: 3rem;
+      }
+
       #group-main {
         padding: 3rem 1rem 1rem;
       }
@@ -694,13 +734,15 @@
       }
 
       #name-main {
-        padding-top: 4rem;
+        padding-top: 1rem;
       }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- NAV -->
 
   <nav class="tool-nav">
     <button class="tool-tab active" data-tool="timer">TIMER</button>
@@ -726,8 +768,12 @@
     </button>
   </div>
 
+  <!-- THEME -->
+
   <div id="theme-panel" class="theme-panel hidden">
-    <label for="theme-color">BACKGROUND</label>
+    <label for="theme-color">
+      BACKGROUND
+    </label>
 
     <input
       id="theme-color"
@@ -739,6 +785,8 @@
       BLACK
     </button>
   </div>
+
+  <!-- HELP -->
 
   <div id="help-overlay" class="hidden">
 
@@ -788,7 +836,7 @@
 
         <div class="shortcut-row">
           <div class="shortcut-key">E</div>
-          <div>EDIT NAMES</div>
+          <div>EDIT SELECTED CLASS</div>
         </div>
 
         <div class="shortcut-row">
@@ -813,7 +861,7 @@
         <h3>SKIP LIST</h3>
 
         <div class="help-copy">
-          Add students to the Skip List when you want them temporarily left out of random selection. Press S to turn the Skip List on or off. When it is on, those names will not be selected. Your main class list stays unchanged.
+          Each class has its own Skip List. Add students when you want them temporarily left out of random selection. Press S to turn the Skip List on or off. When it is on, those names will not be selected. The main class roster stays unchanged.
         </div>
 
       </section>
@@ -845,9 +893,15 @@
 
   <!-- TIMER / STOPWATCH -->
 
-  <section id="timer-tool" class="tool-view active">
+  <section
+    id="timer-tool"
+    class="tool-view active"
+  >
 
-    <div id="timer-presets" class="timer-top">
+    <div
+      id="timer-presets"
+      class="timer-top"
+    >
       <button data-timer-minutes="1">1 MIN</button>
       <button data-timer-minutes="2">2 MIN</button>
       <button data-timer-minutes="5">5 MIN</button>
@@ -884,13 +938,29 @@
 
   <!-- NAMES -->
 
-  <section id="names-tool" class="tool-view">
+  <section
+    id="names-tool"
+    class="tool-view"
+  >
 
     <div
       id="name-skip-indicator"
       aria-hidden="true"
     >
       🦅
+    </div>
+
+    <div class="class-controls names-controls">
+
+      <label for="name-class-select">
+        CLASS
+      </label>
+
+      <select id="name-class-select">
+        <option value="8AB" selected>8AB</option>
+        <option value="8JR">8JR</option>
+      </select>
+
     </div>
 
     <main id="name-main">
@@ -912,13 +982,20 @@
 
     </main>
 
-    <section id="name-editor" class="hidden">
+    <section
+      id="name-editor"
+      class="hidden"
+    >
 
-      <h2>CLASS LIST</h2>
+      <h2 id="name-editor-title">
+        8AB CLASS LIST
+      </h2>
 
       <textarea id="name-names-input"></textarea>
 
-      <h3>SKIP LIST (OPTIONAL)</h3>
+      <h3>
+        SKIP LIST (OPTIONAL)
+      </h3>
 
       <textarea id="name-skip-input"></textarea>
 
@@ -938,7 +1015,10 @@
 
   <!-- GROUPS -->
 
-  <section id="groups-tool" class="tool-view">
+  <section
+    id="groups-tool"
+    class="tool-view"
+  >
 
     <main id="group-main">
 
@@ -976,16 +1056,21 @@
       <div id="groups-wrap">
 
         <div id="groups-container">
+
           <div class="group-placeholder">
             GENERATE GROUPS
           </div>
+
         </div>
 
       </div>
 
     </main>
 
-    <section id="group-editor" class="hidden">
+    <section
+      id="group-editor"
+      class="hidden"
+    >
 
       <h2 id="group-editor-title">
         8AB CLASS LIST
@@ -1070,24 +1155,37 @@
       "LINCOLN"
     ];
 
-    const DEFAULT_SKIP = [];
-
     /* STORAGE */
 
     const STORAGE = {
-      nameList: "adamClassroomTools_nameList_v2",
-      skipList: "adamClassroomTools_skipList_v2",
-      class8AB: "adamClassroomTools_8AB_v2",
-      class8JR: "adamClassroomTools_8JR_v2",
-      theme: "adamClassroomTools_theme"
+      class8AB:
+        "adamClassroomTools_8AB_v2",
+
+      class8JR:
+        "adamClassroomTools_8JR_v2",
+
+      skip8AB:
+        "adamClassroomTools_skip_8AB_v3",
+
+      skip8JR:
+        "adamClassroomTools_skip_8JR_v3",
+
+      theme:
+        "adamClassroomTools_theme"
     };
 
-    function loadArray(key, fallback = []) {
+    function loadArray(
+      key,
+      fallback = []
+    ) {
       try {
+
         const saved =
           localStorage.getItem(key);
 
-        if (saved === null) {
+        if (
+          saved === null
+        ) {
           return [...fallback];
         }
 
@@ -1097,6 +1195,7 @@
         return Array.isArray(parsed)
           ? parsed
           : [...fallback];
+
       }
 
       catch {
@@ -1104,31 +1203,107 @@
       }
     }
 
-    function saveArray(key, array) {
+    function saveArray(
+      key,
+      array
+    ) {
       localStorage.setItem(
         key,
         JSON.stringify(array)
       );
     }
 
+    /* SHARED CLASS DATA */
+
+    const classRosters = {
+      "8AB":
+        loadArray(
+          STORAGE.class8AB,
+          DEFAULT_8AB
+        ),
+
+      "8JR":
+        loadArray(
+          STORAGE.class8JR,
+          DEFAULT_8JR
+        )
+    };
+
+    const classStorageKeys = {
+      "8AB":
+        STORAGE.class8AB,
+
+      "8JR":
+        STORAGE.class8JR
+    };
+
+    const classSkipLists = {
+      "8AB":
+        loadArray(
+          STORAGE.skip8AB,
+          []
+        ),
+
+      "8JR":
+        loadArray(
+          STORAGE.skip8JR,
+          []
+        )
+    };
+
+    const skipStorageKeys = {
+      "8AB":
+        STORAGE.skip8AB,
+
+      "8JR":
+        STORAGE.skip8JR
+    };
+
+    function parseNames(text) {
+      return text
+        .split(/[\n,]/)
+        .map(
+          name =>
+            name.trim()
+        )
+        .filter(Boolean)
+        .map(
+          name =>
+            name.toUpperCase()
+        );
+    }
+
     /* HELP */
 
     const helpButton =
-      document.getElementById("help-button");
+      document.getElementById(
+        "help-button"
+      );
 
     const helpOverlay =
-      document.getElementById("help-overlay");
+      document.getElementById(
+        "help-overlay"
+      );
 
     const helpClose =
-      document.getElementById("help-close");
+      document.getElementById(
+        "help-close"
+      );
 
     function openHelp() {
-      helpOverlay.classList.remove("hidden");
-      themePanel.classList.add("hidden");
+      helpOverlay
+        .classList
+        .remove("hidden");
+
+      themePanel
+        .classList
+        .add("hidden");
     }
 
     function closeHelp() {
-      helpOverlay.classList.add("hidden");
+      helpOverlay
+        .classList
+        .add("hidden");
     }
 
     helpButton.addEventListener(
@@ -1146,7 +1321,8 @@
       event => {
 
         if (
-          event.target === helpOverlay
+          event.target ===
+          helpOverlay
         ) {
           closeHelp();
         }
@@ -1157,18 +1333,27 @@
     /* THEME */
 
     const themeButton =
-      document.getElementById("theme-button");
+      document.getElementById(
+        "theme-button"
+      );
 
     const themePanel =
-      document.getElementById("theme-panel");
+      document.getElementById(
+        "theme-panel"
+      );
 
     const themeColor =
-      document.getElementById("theme-color");
+      document.getElementById(
+        "theme-color"
+      );
 
     const themeReset =
-      document.getElementById("theme-reset");
+      document.getElementById(
+        "theme-reset"
+      );
 
     function getContrastColor(hex) {
+
       const color =
         hex.replace("#", "");
 
@@ -1205,6 +1390,7 @@
     }
 
     function applyTheme(color) {
+
       const textColor =
         getContrastColor(color);
 
@@ -1274,18 +1460,22 @@
     themeColor.addEventListener(
       "input",
       () => {
+
         applyTheme(
           themeColor.value
         );
+
       }
     );
 
     themeReset.addEventListener(
       "click",
       () => {
+
         applyTheme(
           "#000000"
         );
+
       }
     );
 
@@ -1316,24 +1506,29 @@
       "timer";
 
     function switchTool(tool) {
+
       activeTool =
         tool;
 
       toolTabs.forEach(
         tab => {
+
           tab.classList.toggle(
             "active",
             tab.dataset.tool === tool
           );
+
         }
       );
 
       toolViews.forEach(
         view => {
+
           view.classList.toggle(
             "active",
             view.id === `${tool}-tool`
           );
+
         }
       );
 
@@ -1366,14 +1561,18 @@
 
     toolTabs.forEach(
       tab => {
+
         tab.addEventListener(
           "click",
           () => {
+
             switchTool(
               tab.dataset.tool
             );
+
           }
         );
+
       }
     );
 
@@ -1445,6 +1644,7 @@
       null;
 
     function formatTime(seconds) {
+
       seconds =
         Math.max(
           0,
@@ -1509,6 +1709,7 @@
     }
 
     function stopCountdown() {
+
       timerRunning =
         false;
 
@@ -1521,6 +1722,7 @@
     }
 
     function stopStopwatch() {
+
       stopwatchRunning =
         false;
 
@@ -1532,19 +1734,8 @@
         null;
     }
 
-    function stopCurrentClock() {
-      if (
-        timeMode === "timer"
-      ) {
-        pauseCountdown();
-      }
-
-      else {
-        pauseStopwatch();
-      }
-    }
-
     function updateStartPauseLabel() {
+
       const running =
         timeMode === "timer"
           ? timerRunning
@@ -1558,13 +1749,13 @@
     }
 
     function finishCountdown() {
+
       stopCountdown();
 
       timerRemainingSeconds =
         0;
 
       updateMainTimeDisplay();
-
       updateStartPauseLabel();
 
       timerTool
@@ -1643,7 +1834,6 @@
         );
 
       updateStartPauseLabel();
-
       countdownTick();
     }
 
@@ -1670,7 +1860,6 @@
       stopCountdown();
 
       updateStartPauseLabel();
-
       updateMainTimeDisplay();
     }
 
@@ -1711,7 +1900,6 @@
         );
 
       updateStartPauseLabel();
-
       stopwatchTick();
     }
 
@@ -1731,7 +1919,6 @@
       stopStopwatch();
 
       updateStartPauseLabel();
-
       updateMainTimeDisplay();
     }
 
@@ -1795,7 +1982,6 @@
       }
 
       updateStartPauseLabel();
-
       updateMainTimeDisplay();
     }
 
@@ -1820,7 +2006,6 @@
         .remove("flash");
 
       updateStartPauseLabel();
-
       updateMainTimeDisplay();
     }
 
@@ -2020,7 +2205,6 @@
         .remove("flash");
 
       updateStartPauseLabel();
-
       updateMainTimeDisplay();
     }
 
@@ -2095,10 +2279,7 @@
           window.getSelection();
 
         selection.removeAllRanges();
-
-        selection.addRange(
-          range
-        );
+        selection.addRange(range);
 
       }
     );
@@ -2172,26 +2353,10 @@
 
     /* NAME PICKER */
 
-    let nameNames =
-      loadArray(
-        STORAGE.nameList,
-        DEFAULT_8AB
+    const nameClassSelect =
+      document.getElementById(
+        "name-class-select"
       );
-
-    let nameSkipList =
-      loadArray(
-        STORAGE.skipList,
-        DEFAULT_SKIP
-      );
-
-    let namePool =
-      [...nameNames];
-
-    let nameSkipMode =
-      false;
-
-    let nameNoRepeats =
-      true;
 
     const nameStage =
       document.getElementById(
@@ -2218,6 +2383,11 @@
         "name-editor"
       );
 
+    const nameEditorTitle =
+      document.getElementById(
+        "name-editor-title"
+      );
+
     const nameNamesInput =
       document.getElementById(
         "name-names-input"
@@ -2238,6 +2408,31 @@
         "name-skip-indicator"
       );
 
+    let namePool =
+      [];
+
+    let nameSkipMode =
+      false;
+
+    let nameNoRepeats =
+      true;
+
+    function getCurrentNameClass() {
+      return nameClassSelect.value;
+    }
+
+    function getCurrentNameRoster() {
+      return classRosters[
+        getCurrentNameClass()
+      ];
+    }
+
+    function getCurrentSkipList() {
+      return classSkipLists[
+        getCurrentNameClass()
+      ];
+    }
+
     function animateNameFlip() {
 
       nameDisplay
@@ -2251,37 +2446,63 @@
         .add("flip");
     }
 
+    function resetNamePicker() {
+
+      const roster =
+        getCurrentNameRoster();
+
+      namePool =
+        [...roster];
+
+      nameDisplay.textContent =
+        roster.length
+          ? "CLICK OR PRESS SPACE"
+          : "PRESS E TO EDIT NAMES";
+    }
+
     function pickName() {
 
+      const roster =
+        getCurrentNameRoster();
+
+      const skipList =
+        getCurrentSkipList();
+
       if (
-        !nameNames.length
+        !roster.length
       ) {
+
         nameDisplay.textContent =
           "PRESS E TO EDIT NAMES";
+
         return;
       }
 
       let base =
         nameNoRepeats
           ? namePool
-          : nameNames.slice();
+          : roster.slice();
 
       if (
         nameSkipMode
       ) {
+
         base =
           base.filter(
             name =>
-              !nameSkipList
+              !skipList
                 .includes(name)
           );
+
       }
 
       if (
         !base.length
       ) {
+
         nameDisplay.textContent =
           "RESET TO START AGAIN";
+
         return;
       }
 
@@ -2320,17 +2541,6 @@
       }
     }
 
-    function resetNamePicker() {
-
-      namePool =
-        [...nameNames];
-
-      nameDisplay.textContent =
-        nameNames.length
-          ? "CLICK OR PRESS SPACE"
-          : "PRESS E TO EDIT NAMES";
-    }
-
     function toggleNameSkip() {
 
       nameSkipMode =
@@ -2359,6 +2569,9 @@
 
     function toggleNameEditor() {
 
+      const selectedClass =
+        getCurrentNameClass();
+
       nameEditor
         .classList
         .toggle("hidden");
@@ -2369,12 +2582,19 @@
           .contains("hidden")
       ) {
 
+        nameEditorTitle
+          .textContent =
+          `${selectedClass} CLASS LIST`;
+
         nameNamesInput.value =
-          nameNames.join("\n");
+          classRosters[
+            selectedClass
+          ].join("\n");
 
         nameSkipInput.value =
-          nameSkipList
-            .join("\n");
+          classSkipLists[
+            selectedClass
+          ].join("\n");
 
         nameNamesInput.focus();
       }
@@ -2382,48 +2602,64 @@
 
     function saveNameLists() {
 
-      nameNames =
-        nameNamesInput.value
-          .split(/[\n,]/)
-          .map(
-            name =>
-              name.trim()
-          )
-          .filter(Boolean)
-          .map(
-            name =>
-              name.toUpperCase()
-          );
+      const selectedClass =
+        getCurrentNameClass();
 
-      nameSkipList =
-        nameSkipInput.value
-          .split(/[\n,]/)
-          .map(
-            name =>
-              name.trim()
-          )
-          .filter(Boolean)
-          .map(
-            name =>
-              name.toUpperCase()
-          );
+      classRosters[
+        selectedClass
+      ] =
+        parseNames(
+          nameNamesInput.value
+        );
+
+      classSkipLists[
+        selectedClass
+      ] =
+        parseNames(
+          nameSkipInput.value
+        );
 
       saveArray(
-        STORAGE.nameList,
-        nameNames
+        classStorageKeys[
+          selectedClass
+        ],
+        classRosters[
+          selectedClass
+        ]
       );
 
       saveArray(
-        STORAGE.skipList,
-        nameSkipList
+        skipStorageKeys[
+          selectedClass
+        ],
+        classSkipLists[
+          selectedClass
+        ]
       );
-
-      resetNamePicker();
 
       nameEditor
         .classList
         .add("hidden");
+
+      resetNamePicker();
+
+      syncGroupViewIfSameClass(
+        selectedClass
+      );
     }
+
+    nameClassSelect.addEventListener(
+      "change",
+      () => {
+
+        nameEditor
+          .classList
+          .add("hidden");
+
+        resetNamePicker();
+
+      }
+    );
 
     nameStage.addEventListener(
       "click",
@@ -2440,35 +2676,7 @@
       saveNameLists
     );
 
-    resetNamePicker();
-
     /* GROUP GENERATOR */
-
-    const groupClasses = {
-
-      "8AB":
-        loadArray(
-          STORAGE.class8AB,
-          DEFAULT_8AB
-        ),
-
-      "8JR":
-        loadArray(
-          STORAGE.class8JR,
-          DEFAULT_8JR
-        )
-
-    };
-
-    const groupStorageKeys = {
-
-      "8AB":
-        STORAGE.class8AB,
-
-      "8JR":
-        STORAGE.class8JR
-
-    };
 
     const groupClassSelect =
       document.getElementById(
@@ -2516,7 +2724,8 @@
       );
 
     function getCurrentGroupNames() {
-      return groupClasses[
+
+      return classRosters[
         groupClassSelect.value
       ];
     }
@@ -2563,8 +2772,10 @@
       if (
         !names.length
       ) {
+
         groupsContainer.innerHTML =
           '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
+
         return;
       }
 
@@ -2600,9 +2811,7 @@
           groups[
             index %
             numberOfGroups
-          ].push(
-            name
-          );
+          ].push(name);
 
         }
       );
@@ -2708,7 +2917,7 @@
           `${selectedClass} CLASS LIST`;
 
         groupNamesInput.value =
-          groupClasses[
+          classRosters[
             selectedClass
           ].join("\n");
 
@@ -2721,26 +2930,18 @@
       const selectedClass =
         groupClassSelect.value;
 
-      groupClasses[
+      classRosters[
         selectedClass
       ] =
-        groupNamesInput.value
-          .split(/[\n,]/)
-          .map(
-            name =>
-              name.trim()
-          )
-          .filter(Boolean)
-          .map(
-            name =>
-              name.toUpperCase()
-          );
+        parseNames(
+          groupNamesInput.value
+        );
 
       saveArray(
-        groupStorageKeys[
+        classStorageKeys[
           selectedClass
         ],
-        groupClasses[
+        classRosters[
           selectedClass
         ]
       );
@@ -2750,6 +2951,25 @@
         .add("hidden");
 
       resetGroups();
+
+      if (
+        nameClassSelect.value
+        === selectedClass
+      ) {
+        resetNamePicker();
+      }
+    }
+
+    function syncGroupViewIfSameClass(
+      selectedClass
+    ) {
+
+      if (
+        groupClassSelect.value
+        === selectedClass
+      ) {
+        resetGroups();
+      }
     }
 
     groupClassSelect.addEventListener(
@@ -2824,6 +3044,8 @@
           return;
         }
 
+        /* TIMER */
+
         if (
           activeTool === "timer"
         ) {
@@ -2831,8 +3053,11 @@
           if (
             event.code === "Space"
           ) {
+
             event.preventDefault();
+
             toggleClock();
+
           }
 
           if (
@@ -2840,10 +3065,16 @@
               .toLowerCase()
             === "r"
           ) {
+
             event.preventDefault();
+
             resetCurrentClock();
+
           }
+
         }
+
+        /* NAMES */
 
         if (
           activeTool === "names"
@@ -2852,8 +3083,11 @@
           if (
             event.code === "Space"
           ) {
+
             event.preventDefault();
+
             pickName();
+
           }
 
           if (
@@ -2861,8 +3095,11 @@
               .toLowerCase()
             === "e"
           ) {
+
             event.preventDefault();
+
             toggleNameEditor();
+
           }
 
           if (
@@ -2870,8 +3107,11 @@
               .toLowerCase()
             === "s"
           ) {
+
             event.preventDefault();
+
             toggleNameSkip();
+
           }
 
           if (
@@ -2879,8 +3119,11 @@
               .toLowerCase()
             === "n"
           ) {
+
             event.preventDefault();
+
             toggleNameRepeats();
+
           }
 
           if (
@@ -2888,10 +3131,16 @@
               .toLowerCase()
             === "r"
           ) {
+
             event.preventDefault();
+
             resetNamePicker();
+
           }
+
         }
+
+        /* GROUPS */
 
         if (
           activeTool === "groups"
@@ -2900,8 +3149,11 @@
           if (
             event.code === "Space"
           ) {
+
             event.preventDefault();
+
             generateGroups();
+
           }
 
           if (
@@ -2909,8 +3161,11 @@
               .toLowerCase()
             === "e"
           ) {
+
             event.preventDefault();
+
             toggleGroupEditor();
+
           }
 
           if (
@@ -2918,17 +3173,25 @@
               .toLowerCase()
             === "r"
           ) {
+
             event.preventDefault();
+
             resetGroups();
+
           }
+
         }
 
       }
     );
 
+    /* INITIALIZE */
+
+    resetNamePicker();
+    resetGroups();
+
     updateStartPauseLabel();
     updateMainTimeDisplay();
-    resetGroups();
 
   </script>
 
