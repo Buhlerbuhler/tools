@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,16 +53,13 @@
       opacity: 0.8;
     }
 
-    /* ================================================================
-       NAVIGATION
-    ================================================================ */
+    /* NAVIGATION */
 
     .tool-nav {
       position: fixed;
       top: 1rem;
       left: 1rem;
       z-index: 5000;
-
       display: flex;
       gap: 0.3rem;
       align-items: center;
@@ -71,11 +69,9 @@
       border: 0;
       background: transparent;
       color: var(--text);
-
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.03em;
-
       padding: 0.2rem 0.38rem;
       border-radius: 4px;
     }
@@ -85,43 +81,47 @@
       color: var(--bg);
     }
 
-    .theme-button {
+    .utility-nav {
       position: fixed;
       top: 1rem;
       right: 1rem;
       z-index: 5000;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
 
+    .utility-button {
       border: 0;
       background: transparent;
       color: var(--text);
-
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.03em;
-
       padding: 0.2rem 0.38rem;
       border-radius: 4px;
     }
 
-    /* ================================================================
-       THEME PANEL
-    ================================================================ */
+    #help-button {
+      font-size: 0.9rem;
+      line-height: 1;
+      padding-left: 0.3rem;
+      padding-right: 0.3rem;
+    }
+
+    /* THEME PANEL */
 
     .theme-panel {
       position: fixed;
       top: 2.9rem;
       right: 1rem;
       z-index: 5000;
-
       display: flex;
       align-items: center;
       gap: 0.45rem;
-
       padding: 0.4rem;
-
       background: var(--text);
       color: var(--bg);
-
       border-radius: 5px;
     }
 
@@ -152,9 +152,95 @@
       font-weight: 800;
     }
 
-    /* ================================================================
-       TOOL VIEWS
-    ================================================================ */
+    /* HELP */
+
+    #help-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+    }
+
+    #help-overlay.hidden {
+      display: none;
+    }
+
+    .help-card {
+      width: min(620px, 100%);
+      max-height: 85vh;
+      overflow: auto;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .help-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .help-header h2 {
+      margin: 0;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+    }
+
+    #help-close {
+      border: none;
+      background: transparent;
+      color: var(--text);
+      padding: 0.2rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .help-section {
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--soft-line);
+    }
+
+    .help-section:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .help-section h3 {
+      margin: 0 0 0.55rem;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .shortcut-row {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 0.75rem;
+      margin: 0.35rem 0;
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .shortcut-key {
+      font-weight: 900;
+    }
+
+    .help-copy {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      text-transform: none;
+    }
+
+    /* TOOL VIEWS */
 
     .tool-view {
       display: none;
@@ -166,9 +252,7 @@
       display: flex;
     }
 
-    /* ================================================================
-       TIMER
-    ================================================================ */
+    /* TIMER */
 
     #timer-tool {
       flex-direction: column;
@@ -254,15 +338,12 @@
       }
     }
 
-    /* ================================================================
-       NAME PICKER
-    ================================================================ */
+    /* NAME PICKER */
 
     #names-tool {
       flex-direction: column;
       position: relative;
       overflow: hidden;
-
       font-family:
         "Poppins",
         system-ui,
@@ -273,7 +354,7 @@
         sans-serif;
     }
 
-    #name-gentle-indicator {
+    #name-skip-indicator {
       position: absolute;
       top: 0.75rem;
       left: 50%;
@@ -284,7 +365,7 @@
       pointer-events: none;
     }
 
-    #name-gentle-indicator.on {
+    #name-skip-indicator.on {
       opacity: 0.9;
     }
 
@@ -397,9 +478,7 @@
       font-weight: 700;
     }
 
-    /* ================================================================
-       GROUP GENERATOR
-    ================================================================ */
+    /* GROUPS */
 
     #groups-tool {
       flex-direction: column;
@@ -547,9 +626,7 @@
       font-weight: 700;
     }
 
-    /* ================================================================
-       RESPONSIVE
-    ================================================================ */
+    /* RESPONSIVE */
 
     @media (max-width: 700px) {
 
@@ -558,7 +635,7 @@
         left: 0.65rem;
       }
 
-      .theme-button {
+      .utility-nav {
         top: 0.65rem;
         right: 0.65rem;
       }
@@ -594,55 +671,37 @@
 
 <body>
 
-  <!-- ================================================================
-       NAV
-  ================================================================ -->
+  <!-- NAV -->
 
   <nav class="tool-nav">
-
-    <button
-      class="tool-tab active"
-      data-tool="timer"
-    >
-      TIMER
-    </button>
-
-    <button
-      class="tool-tab"
-      data-tool="names"
-    >
-      NAMES
-    </button>
-
-    <button
-      class="tool-tab"
-      data-tool="groups"
-    >
-      GROUPS
-    </button>
-
+    <button class="tool-tab active" data-tool="timer">TIMER</button>
+    <button class="tool-tab" data-tool="names">NAMES</button>
+    <button class="tool-tab" data-tool="groups">GROUPS</button>
   </nav>
 
-  <button
-    id="theme-button"
-    class="theme-button"
-  >
-    THEME
-  </button>
+  <div class="utility-nav">
+    <button
+      id="help-button"
+      class="utility-button"
+      aria-label="Help"
+      title="Help"
+    >
+      ⓘ
+    </button>
+
+    <button
+      id="theme-button"
+      class="utility-button"
+    >
+      THEME
+    </button>
+  </div>
 
 
-  <!-- ================================================================
-       THEME
-  ================================================================ -->
+  <!-- THEME -->
 
-  <div
-    id="theme-panel"
-    class="theme-panel hidden"
-  >
-
-    <label for="theme-color">
-      BACKGROUND
-    </label>
+  <div id="theme-panel" class="theme-panel hidden">
+    <label for="theme-color">BACKGROUND</label>
 
     <input
       id="theme-color"
@@ -653,40 +712,130 @@
     <button id="theme-reset">
       BLACK
     </button>
+  </div>
+
+
+  <!-- HELP -->
+
+  <div id="help-overlay" class="hidden">
+
+    <div class="help-card">
+
+      <div class="help-header">
+
+        <h2>
+          HELP
+        </h2>
+
+        <button id="help-close">
+          CLOSE
+        </button>
+
+      </div>
+
+
+      <section class="help-section">
+
+        <h3>TIMER</h3>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">SPACE</div>
+          <div>START / PAUSE</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">R</div>
+          <div>RESET</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">CLICK TIME</div>
+          <div>TYPE A CUSTOM TIME</div>
+        </div>
+
+      </section>
+
+
+      <section class="help-section">
+
+        <h3>NAMES</h3>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">SPACE</div>
+          <div>PICK A NAME</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">E</div>
+          <div>EDIT NAMES</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">S</div>
+          <div>TOGGLE SKIP LIST</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">N</div>
+          <div>TOGGLE REPEATS</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">R</div>
+          <div>RESET AVAILABLE NAMES</div>
+        </div>
+
+      </section>
+
+
+      <section class="help-section">
+
+        <h3>SKIP LIST</h3>
+
+        <div class="help-copy">
+          Add students to the Skip List when you want them temporarily left out of random selection. Press S to turn the Skip List on or off. When it is on, those names will not be selected. Your main class list stays unchanged.
+        </div>
+
+      </section>
+
+
+      <section class="help-section">
+
+        <h3>GROUPS</h3>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">SPACE</div>
+          <div>GENERATE GROUPS</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">E</div>
+          <div>EDIT SELECTED CLASS</div>
+        </div>
+
+        <div class="shortcut-row">
+          <div class="shortcut-key">R</div>
+          <div>RESET GROUPS</div>
+        </div>
+
+      </section>
+
+    </div>
 
   </div>
 
 
-  <!-- ================================================================
-       TIMER
-  ================================================================ -->
+  <!-- TIMER -->
 
-  <section
-    id="timer-tool"
-    class="tool-view active"
-  >
+  <section id="timer-tool" class="tool-view active">
 
     <div class="timer-top">
 
-      <button data-timer-minutes="1">
-        1 MIN
-      </button>
-
-      <button data-timer-minutes="2">
-        2 MIN
-      </button>
-
-      <button data-timer-minutes="5">
-        5 MIN
-      </button>
-
-      <button data-timer-minutes="10">
-        10 MIN
-      </button>
-
-      <button id="timer-reading">
-        READING
-      </button>
+      <button data-timer-minutes="1">1 MIN</button>
+      <button data-timer-minutes="2">2 MIN</button>
+      <button data-timer-minutes="5">5 MIN</button>
+      <button data-timer-minutes="10">10 MIN</button>
+      <button id="timer-reading">READING</button>
 
     </div>
 
@@ -719,20 +868,15 @@
   </section>
 
 
-  <!-- ================================================================
-       NAMES
-  ================================================================ -->
+  <!-- NAMES -->
 
-  <section
-    id="names-tool"
-    class="tool-view"
-  >
+  <section id="names-tool" class="tool-view">
 
     <div
-      id="name-gentle-indicator"
+      id="name-skip-indicator"
       aria-hidden="true"
     >
-      🦅
+      ⏭
     </div>
 
 
@@ -756,27 +900,20 @@
     </main>
 
 
-    <section
-      id="name-editor"
-      class="hidden"
-    >
+    <section id="name-editor" class="hidden">
 
       <h2>
         CLASS LIST
       </h2>
 
-      <textarea
-        id="name-names-input"
-      ></textarea>
+      <textarea id="name-names-input"></textarea>
 
 
       <h3>
-        GENTLE EXCLUSIONS (OPTIONAL)
+        SKIP LIST (OPTIONAL)
       </h3>
 
-      <textarea
-        id="name-gentle-input"
-      ></textarea>
+      <textarea id="name-skip-input"></textarea>
 
 
       <button id="name-save">
@@ -797,14 +934,9 @@
   </section>
 
 
-  <!-- ================================================================
-       GROUPS
-  ================================================================ -->
+  <!-- GROUPS -->
 
-  <section
-    id="groups-tool"
-    class="tool-view"
-  >
+  <section id="groups-tool" class="tool-view">
 
     <main id="group-main">
 
@@ -814,47 +946,24 @@
           CLASS
         </label>
 
-
         <select id="group-class-select">
-
-          <option
-            value="8AB"
-            selected
-          >
-            8AB
-          </option>
-
-          <option value="8JR">
-            8JR
-          </option>
-
+          <option value="8AB" selected>8AB</option>
+          <option value="8JR">8JR</option>
         </select>
-
 
         <label for="group-size">
           GROUP SIZE
         </label>
 
-
         <select id="group-size">
-
           <option value="2">2</option>
           <option value="3">3</option>
-
-          <option
-            value="4"
-            selected
-          >
-            4
-          </option>
-
+          <option value="4" selected>4</option>
           <option value="5">5</option>
           <option value="6">6</option>
           <option value="7">7</option>
           <option value="8">8</option>
-
         </select>
-
 
         <button id="group-generate">
           GENERATE
@@ -878,20 +987,13 @@
     </main>
 
 
-    <section
-      id="group-editor"
-      class="hidden"
-    >
+    <section id="group-editor" class="hidden">
 
       <h2 id="group-editor-title">
         8AB CLASS LIST
       </h2>
 
-
-      <textarea
-        id="group-names-input"
-      ></textarea>
-
+      <textarea id="group-names-input"></textarea>
 
       <button id="group-save">
         SAVE
@@ -913,12 +1015,9 @@
 
   <script>
 
-    /* ================================================================
-       DEFAULT CLASS LISTS
-    ================================================================ */
+    /* DEFAULTS */
 
     const DEFAULT_8AB = [
-      "ISAIAH",
       "ANELEIGH",
       "ZANDER",
       "JOSIE",
@@ -938,7 +1037,6 @@
       "COHEN",
       "CROSBY",
       "BRISTOL",
-      "ROY",
       "MAX",
       "THOMAS",
       "BRENT",
@@ -946,10 +1044,8 @@
       "ALEXANDRA"
     ];
 
-
     const DEFAULT_8JR = [
       "LOGAN",
-      "LINCOLN",
       "ABEL",
       "SARAH",
       "KYLE",
@@ -965,7 +1061,6 @@
       "KIKI",
       "RAJA",
       "JOHN",
-      "ASA",
       "AVERY",
       "SOPHIA",
       "CORISSA",
@@ -977,23 +1072,20 @@
       "TAYLA"
     ];
 
-
-    const DEFAULT_GENTLE = [
+    const DEFAULT_SKIP = [
       "ANELEIGH",
       "BELLA"
     ];
 
 
-    /* ================================================================
-       STORAGE
-    ================================================================ */
+    /* STORAGE */
 
     const STORAGE = {
       nameList:
         "adamClassroomTools_nameList",
 
-      gentleList:
-        "adamClassroomTools_gentleList",
+      skipList:
+        "adamClassroomTools_skipList",
 
       class8AB:
         "adamClassroomTools_8AB",
@@ -1010,34 +1102,25 @@
       key,
       fallback = []
     ) {
-
       try {
-
         const saved =
           localStorage.getItem(key);
-
 
         if (saved === null) {
           return [...fallback];
         }
 
-
         const parsed =
           JSON.parse(saved);
-
 
         return Array.isArray(parsed)
           ? parsed
           : [...fallback];
-
       }
 
       catch {
-
         return [...fallback];
-
       }
-
     }
 
 
@@ -1045,18 +1128,74 @@
       key,
       array
     ) {
-
       localStorage.setItem(
         key,
         JSON.stringify(array)
       );
-
     }
 
 
-    /* ================================================================
-       THEME
-    ================================================================ */
+    /* HELP */
+
+    const helpButton =
+      document.getElementById(
+        "help-button"
+      );
+
+    const helpOverlay =
+      document.getElementById(
+        "help-overlay"
+      );
+
+    const helpClose =
+      document.getElementById(
+        "help-close"
+      );
+
+
+    function openHelp() {
+      helpOverlay
+        .classList
+        .remove("hidden");
+
+      themePanel
+        .classList
+        .add("hidden");
+    }
+
+
+    function closeHelp() {
+      helpOverlay
+        .classList
+        .add("hidden");
+    }
+
+
+    helpButton.addEventListener(
+      "click",
+      openHelp
+    );
+
+    helpClose.addEventListener(
+      "click",
+      closeHelp
+    );
+
+    helpOverlay.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === helpOverlay
+        ) {
+          closeHelp();
+        }
+
+      }
+    );
+
+
+    /* THEME */
 
     const themeButton =
       document.getElementById(
@@ -1084,7 +1223,6 @@
       const color =
         hex.replace("#", "");
 
-
       const r =
         parseInt(
           color.substring(0,2),
@@ -1103,7 +1241,6 @@
           16
         );
 
-
       const brightness =
         (
           r * 299 +
@@ -1113,11 +1250,9 @@
         /
         1000;
 
-
       return brightness > 150
         ? "#000000"
         : "#ffffff";
-
     }
 
 
@@ -1126,7 +1261,6 @@
       const textColor =
         getContrastColor(color);
 
-
       document.documentElement
         .style
         .setProperty(
@@ -1134,14 +1268,12 @@
           color
         );
 
-
       document.documentElement
         .style
         .setProperty(
           "--text",
           textColor
         );
-
 
       document.documentElement
         .style
@@ -1152,7 +1284,6 @@
             : "rgba(0,0,0,0.6)"
         );
 
-
       document.documentElement
         .style
         .setProperty(
@@ -1161,7 +1292,6 @@
             ? "rgba(255,255,255,0.35)"
             : "rgba(0,0,0,0.35)"
         );
-
 
       document.documentElement
         .style
@@ -1172,56 +1302,45 @@
             : "rgba(0,0,0,0.12)"
         );
 
-
-      themeColor.value =
-        color;
-
+      themeColor.value = color;
 
       localStorage.setItem(
         STORAGE.theme,
         color
       );
-
     }
 
 
-    themeButton
-      .addEventListener(
-        "click",
-        () => {
+    themeButton.addEventListener(
+      "click",
+      () => {
 
-          themePanel
-            .classList
-            .toggle("hidden");
+        themePanel
+          .classList
+          .toggle("hidden");
 
-        }
-      );
+        closeHelp();
 
+      }
+    );
 
-    themeColor
-      .addEventListener(
-        "input",
-        () => {
+    themeColor.addEventListener(
+      "input",
+      () => {
+        applyTheme(
+          themeColor.value
+        );
+      }
+    );
 
-          applyTheme(
-            themeColor.value
-          );
-
-        }
-      );
-
-
-    themeReset
-      .addEventListener(
-        "click",
-        () => {
-
-          applyTheme(
-            "#000000"
-          );
-
-        }
-      );
+    themeReset.addEventListener(
+      "click",
+      () => {
+        applyTheme(
+          "#000000"
+        );
+      }
+    );
 
 
     const savedTheme =
@@ -1231,15 +1350,12 @@
       ||
       "#000000";
 
-
     applyTheme(
       savedTheme
     );
 
 
-    /* ================================================================
-       NAVIGATION
-    ================================================================ */
+    /* NAVIGATION */
 
     const toolTabs =
       document.querySelectorAll(
@@ -1251,7 +1367,6 @@
         ".tool-view"
       );
 
-
     let activeTool =
       "timer";
 
@@ -1261,82 +1376,65 @@
       activeTool =
         tool;
 
-
       toolTabs.forEach(
         tab => {
-
           tab.classList.toggle(
             "active",
             tab.dataset.tool === tool
           );
-
         }
       );
 
-
       toolViews.forEach(
         view => {
-
           view.classList.toggle(
             "active",
             view.id === `${tool}-tool`
           );
-
         }
       );
-
 
       themePanel
         .classList
         .add("hidden");
 
-
-      if (tool === "names") {
-
-        document.title =
-          "RANDOM NAME PICKER";
-
-      }
-
-
-      if (tool === "groups") {
-
-        document.title =
-          "RANDOM GROUP GENERATOR";
-
-      }
-
+      closeHelp();
 
       if (tool === "timer") {
-
         updateTimerDisplay();
-
       }
 
+      else if (
+        tool === "names"
+      ) {
+        document.title =
+          "RANDOM NAME PICKER";
+      }
+
+      else if (
+        tool === "groups"
+      ) {
+        document.title =
+          "RANDOM GROUP GENERATOR";
+      }
     }
 
 
     toolTabs.forEach(
       tab => {
-
         tab.addEventListener(
           "click",
           () => {
-
             switchTool(
               tab.dataset.tool
             );
-
           }
         );
-
       }
     );
 
 
-    /* ================================================================
-       TIMER
-    ================================================================ */
+    /* TIMER */
 
     const timerTool =
       document.getElementById(
@@ -1388,16 +1486,13 @@
           Math.ceil(seconds)
         );
 
-
       const mins =
         Math.floor(
           seconds / 60
         );
 
-
       const secs =
         seconds % 60;
-
 
       return (
         String(mins)
@@ -1408,7 +1503,6 @@
         String(secs)
           .padStart(2,"0")
       );
-
     }
 
 
@@ -1419,20 +1513,15 @@
           timerRemainingSeconds
         );
 
-
       timerDisplay.textContent =
         time;
-
 
       if (
         activeTool === "timer"
       ) {
-
         document.title =
           `${time} — TIMER`;
-
       }
-
     }
 
 
@@ -1444,9 +1533,7 @@
           .trim()
           .replace(/\s/g,"");
 
-
       let seconds = 0;
-
 
       if (
         value.includes(":")
@@ -1454,7 +1541,6 @@
 
         const parts =
           value.split(":");
-
 
         const minutes =
           parseInt(
@@ -1464,7 +1550,6 @@
           ||
           0;
 
-
         const secs =
           parseInt(
             parts[1],
@@ -1473,12 +1558,10 @@
           ||
           0;
 
-
         seconds =
           minutes * 60
           +
           secs;
-
       }
 
       else {
@@ -1486,20 +1569,15 @@
         const minutes =
           parseFloat(value);
 
-
         if (
           !isNaN(minutes)
         ) {
-
           seconds =
             Math.round(
               minutes * 60
             );
-
         }
-
       }
-
 
       timerRemainingSeconds =
         Math.max(
@@ -1507,13 +1585,10 @@
           seconds
         );
 
-
       timerDefaultSeconds =
         timerRemainingSeconds;
 
-
       updateTimerDisplay();
-
     }
 
 
@@ -1522,20 +1597,16 @@
       timerRunning =
         false;
 
-
       clearInterval(
         timerInterval
       );
 
-
       timerInterval =
         null;
-
 
       timerStartPauseBtn
         .textContent =
         "START";
-
     }
 
 
@@ -1543,26 +1614,20 @@
 
       stopTimer();
 
-
       timerRemainingSeconds =
         0;
 
-
       updateTimerDisplay();
-
 
       timerTool
         .classList
         .remove("flash");
 
-
       void timerTool.offsetWidth;
-
 
       timerTool
         .classList
         .add("flash");
-
     }
 
 
@@ -1576,7 +1641,6 @@
         return;
       }
 
-
       timerRemainingSeconds =
         (
           timerEndTime
@@ -1586,20 +1650,14 @@
         /
         1000;
 
-
       if (
         timerRemainingSeconds <= 0
       ) {
-
         finishTimer();
-
         return;
-
       }
 
-
       updateTimerDisplay();
-
     }
 
 
@@ -1610,13 +1668,9 @@
         ===
         timerDisplay
       ) {
-
         parseTypedTimer();
-
         timerDisplay.blur();
-
       }
-
 
       if (
         timerRemainingSeconds <= 0
@@ -1624,26 +1678,21 @@
         return;
       }
 
-
       timerRunning =
         true;
-
 
       timerEndTime =
         Date.now()
         +
         timerRemainingSeconds * 1000;
 
-
       timerStartPauseBtn
         .textContent =
         "PAUSE";
 
-
       clearInterval(
         timerInterval
       );
-
 
       timerInterval =
         setInterval(
@@ -1651,18 +1700,17 @@
           100
         );
 
-
       timerTick();
-
     }
 
 
     function pauseTimer() {
 
-      if (!timerRunning) {
+      if (
+        !timerRunning
+      ) {
         return;
       }
-
 
       timerRemainingSeconds =
         Math.max(
@@ -1676,28 +1724,22 @@
           1000
         );
 
-
       stopTimer();
-
       updateTimerDisplay();
-
     }
 
 
     function toggleTimer() {
 
-      if (timerRunning) {
-
+      if (
+        timerRunning
+      ) {
         pauseTimer();
-
       }
 
       else {
-
         startTimer();
-
       }
-
     }
 
 
@@ -1705,22 +1747,17 @@
 
       stopTimer();
 
-
       timerDefaultSeconds =
         minutes * 60;
 
-
       timerRemainingSeconds =
         timerDefaultSeconds;
-
 
       timerTool
         .classList
         .remove("flash");
 
-
       updateTimerDisplay();
-
     }
 
 
@@ -1728,18 +1765,14 @@
 
       stopTimer();
 
-
       timerRemainingSeconds =
         timerDefaultSeconds;
-
 
       timerTool
         .classList
         .remove("flash");
 
-
       updateTimerDisplay();
-
     }
 
 
@@ -1747,14 +1780,11 @@
 
       stopTimer();
 
-
       const now =
         new Date();
 
-
       const readingEnd =
         new Date();
-
 
       readingEnd.setHours(
         14,
@@ -1762,7 +1792,6 @@
         0,
         0
       );
-
 
       const difference =
         (
@@ -1773,29 +1802,22 @@
         /
         1000;
 
-
       timerRemainingSeconds =
         Math.max(
           0,
           difference
         );
 
-
       timerDefaultSeconds =
         timerRemainingSeconds;
 
-
       updateTimerDisplay();
-
 
       if (
         timerRemainingSeconds > 0
       ) {
-
         startTimer();
-
       }
-
     }
 
 
@@ -1824,131 +1846,109 @@
       );
 
 
-    timerReadingBtn
-      .addEventListener(
-        "click",
-        startReadingTimer
-      );
+    timerReadingBtn.addEventListener(
+      "click",
+      startReadingTimer
+    );
+
+    timerStartPauseBtn.addEventListener(
+      "click",
+      toggleTimer
+    );
+
+    timerResetBtn.addEventListener(
+      "click",
+      resetTimer
+    );
 
 
-    timerStartPauseBtn
-      .addEventListener(
-        "click",
-        toggleTimer
-      );
+    timerDisplay.addEventListener(
+      "focus",
+      () => {
 
-
-    timerResetBtn
-      .addEventListener(
-        "click",
-        resetTimer
-      );
-
-
-    timerDisplay
-      .addEventListener(
-        "focus",
-        () => {
-
-          if (
-            timerRunning
-          ) {
-
-            pauseTimer();
-
-          }
-
-
-          const range =
-            document.createRange();
-
-
-          range.selectNodeContents(
-            timerDisplay
-          );
-
-
-          const selection =
-            window.getSelection();
-
-
-          selection.removeAllRanges();
-
-          selection.addRange(
-            range
-          );
-
+        if (
+          timerRunning
+        ) {
+          pauseTimer();
         }
-      );
+
+        const range =
+          document.createRange();
+
+        range.selectNodeContents(
+          timerDisplay
+        );
+
+        const selection =
+          window.getSelection();
+
+        selection.removeAllRanges();
+
+        selection.addRange(
+          range
+        );
+      }
+    );
 
 
-    timerDisplay
-      .addEventListener(
-        "keydown",
-        event => {
+    timerDisplay.addEventListener(
+      "keydown",
+      event => {
 
-          if (
-            event.key === "Enter"
-          ) {
+        if (
+          event.key === "Enter"
+        ) {
 
-            event.preventDefault();
+          event.preventDefault();
 
+          parseTypedTimer();
 
-            parseTypedTimer();
+          timerDisplay.blur();
 
-            timerDisplay.blur();
-
-            startTimer();
-
-          }
-
+          startTimer();
         }
-      );
+
+      }
+    );
 
 
-    timerDisplay
-      .addEventListener(
-        "beforeinput",
-        event => {
+    timerDisplay.addEventListener(
+      "beforeinput",
+      event => {
 
-          if (
-            event.inputType === "insertText"
-            &&
+        if (
+          event.inputType === "insertText"
+          &&
+          event.data
+          &&
+          !/^[0-9:.]+$/.test(
             event.data
-            &&
-            !/^[0-9:.]+$/.test(
-              event.data
-            )
-          ) {
+          )
+        ) {
 
-            event.preventDefault();
-
-          }
+          event.preventDefault();
 
         }
-      );
+
+      }
+    );
 
 
-    timerDisplay
-      .addEventListener(
-        "blur",
-        () => {
+    timerDisplay.addEventListener(
+      "blur",
+      () => {
 
-          if (
-            !timerRunning
-          ) {
-
-            parseTypedTimer();
-
-          }
-
+        if (
+          !timerRunning
+        ) {
+          parseTypedTimer();
         }
-      );
+
+      }
+    );
 
 
-    /* ================================================================
-       NAME PICKER
-    ================================================================ */
+    /* NAME PICKER */
 
     let nameNames =
       loadArray(
@@ -1956,21 +1956,17 @@
         DEFAULT_8AB
       );
 
-
-    let nameGentleExclusions =
+    let nameSkipList =
       loadArray(
-        STORAGE.gentleList,
-        DEFAULT_GENTLE
+        STORAGE.skipList,
+        DEFAULT_SKIP
       );
-
 
     let namePool =
       [...nameNames];
 
-
-    let nameGentleMode =
+    let nameSkipMode =
       false;
-
 
     let nameNoRepeats =
       true;
@@ -2006,9 +2002,9 @@
         "name-names-input"
       );
 
-    const nameGentleInput =
+    const nameSkipInput =
       document.getElementById(
-        "name-gentle-input"
+        "name-skip-input"
       );
 
     const nameSaveBtn =
@@ -2016,9 +2012,9 @@
         "name-save"
       );
 
-    const nameGentleIndicator =
+    const nameSkipIndicator =
       document.getElementById(
-        "name-gentle-indicator"
+        "name-skip-indicator"
       );
 
 
@@ -2028,14 +2024,11 @@
         .classList
         .remove("flip");
 
-
       void nameDisplay.offsetWidth;
-
 
       nameDisplay
         .classList
         .add("flip");
-
     }
 
 
@@ -2044,46 +2037,34 @@
       if (
         !nameNames.length
       ) {
-
         nameDisplay.textContent =
-          "ADD NAMES WITH E";
-
+          "PRESS E TO EDIT NAMES";
         return;
-
       }
-
 
       let base =
         nameNoRepeats
           ? namePool
           : nameNames.slice();
 
-
       if (
-        nameGentleMode
+        nameSkipMode
       ) {
-
         base =
           base.filter(
             name =>
-              !nameGentleExclusions
+              !nameSkipList
                 .includes(name)
           );
-
       }
-
 
       if (
         !base.length
       ) {
-
         nameDisplay.textContent =
           "RESET TO START AGAIN";
-
         return;
-
       }
-
 
       const randomIndex =
         Math.floor(
@@ -2092,17 +2073,13 @@
           base.length
         );
 
-
       const chosen =
         base[randomIndex];
-
 
       nameDisplay.textContent =
         chosen;
 
-
       animateNameFlip();
-
 
       if (
         nameNoRepeats
@@ -2113,20 +2090,15 @@
             chosen
           );
 
-
         if (
           index !== -1
         ) {
-
           namePool.splice(
             index,
             1
           );
-
         }
-
       }
-
     }
 
 
@@ -2135,28 +2107,24 @@
       namePool =
         [...nameNames];
 
-
       nameDisplay.textContent =
         nameNames.length
           ? "CLICK OR PRESS SPACE"
-          : "ADD NAMES WITH E";
-
+          : "PRESS E TO EDIT NAMES";
     }
 
 
-    function toggleNameGentle() {
+    function toggleNameSkip() {
 
-      nameGentleMode =
-        !nameGentleMode;
+      nameSkipMode =
+        !nameSkipMode;
 
-
-      nameGentleIndicator
+      nameSkipIndicator
         .classList
         .toggle(
           "on",
-          nameGentleMode
+          nameSkipMode
         );
-
     }
 
 
@@ -2165,14 +2133,12 @@
       nameNoRepeats =
         !nameNoRepeats;
 
-
       nameRepeatsIndicator
         .classList
         .toggle(
           "on",
           !nameNoRepeats
         );
-
     }
 
 
@@ -2181,7 +2147,6 @@
       nameEditor
         .classList
         .toggle("hidden");
-
 
       if (
         !nameEditor
@@ -2192,16 +2157,12 @@
         nameNamesInput.value =
           nameNames.join("\n");
 
-
-        nameGentleInput.value =
-          nameGentleExclusions
+        nameSkipInput.value =
+          nameSkipList
             .join("\n");
 
-
         nameNamesInput.focus();
-
       }
-
     }
 
 
@@ -2220,9 +2181,8 @@
               name.toUpperCase()
           );
 
-
-      nameGentleExclusions =
-        nameGentleInput.value
+      nameSkipList =
+        nameSkipInput.value
           .split(/[\n,]/)
           .map(
             name =>
@@ -2234,56 +2194,43 @@
               name.toUpperCase()
           );
 
-
       saveArray(
         STORAGE.nameList,
         nameNames
       );
 
-
       saveArray(
-        STORAGE.gentleList,
-        nameGentleExclusions
+        STORAGE.skipList,
+        nameSkipList
       );
 
-
       resetNamePicker();
-
 
       nameEditor
         .classList
         .add("hidden");
-
     }
 
 
-    nameStage
-      .addEventListener(
-        "click",
-        pickName
-      );
+    nameStage.addEventListener(
+      "click",
+      pickName
+    );
 
+    nameResetBtn.addEventListener(
+      "click",
+      resetNamePicker
+    );
 
-    nameResetBtn
-      .addEventListener(
-        "click",
-        resetNamePicker
-      );
-
-
-    nameSaveBtn
-      .addEventListener(
-        "click",
-        saveNameLists
-      );
-
+    nameSaveBtn.addEventListener(
+      "click",
+      saveNameLists
+    );
 
     resetNamePicker();
 
 
-    /* ================================================================
-       GROUP GENERATOR
-    ================================================================ */
+    /* GROUP GENERATOR */
 
     const groupClasses = {
 
@@ -2364,7 +2311,6 @@
       return groupClasses[
         groupClassSelect.value
       ];
-
     }
 
 
@@ -2372,7 +2318,6 @@
 
       const copy =
         [...array];
-
 
       for (
         let i =
@@ -2390,7 +2335,6 @@
             (i + 1)
           );
 
-
         [
           copy[i],
           copy[j]
@@ -2399,12 +2343,9 @@
           copy[j],
           copy[i]
         ];
-
       }
 
-
       return copy;
-
     }
 
 
@@ -2413,30 +2354,23 @@
       const names =
         getCurrentGroupNames();
 
-
       if (
         !names.length
       ) {
-
         groupsContainer.innerHTML =
-          '<div class="group-placeholder">ADD NAMES WITH E</div>';
-
+          '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
         return;
-
       }
-
 
       const size =
         Number(
           groupSizeSelect.value
         );
 
-
       const shuffled =
         shuffleNames(
           names
         );
-
 
       const numberOfGroups =
         Math.ceil(
@@ -2444,7 +2378,6 @@
           /
           size
         );
-
 
       const groups =
         Array.from(
@@ -2454,7 +2387,6 @@
           },
           () => []
         );
-
 
       shuffled.forEach(
         (name,index) => {
@@ -2469,10 +2401,8 @@
         }
       );
 
-
       groupsContainer.innerHTML =
         "";
-
 
       groups.forEach(
         (group,index) => {
@@ -2482,34 +2412,27 @@
               "section"
             );
 
-
           groupEl.className =
             "group-card";
-
 
           const title =
             document.createElement(
               "div"
             );
 
-
           title.className =
             "group-title";
 
-
           title.textContent =
             `GROUP ${index + 1}`;
-
 
           const namesWrap =
             document.createElement(
               "div"
             );
 
-
           namesWrap.className =
             "group-names";
-
 
           group.forEach(
             name => {
@@ -2519,14 +2442,11 @@
                   "div"
                 );
 
-
               nameEl.className =
                 "group-name";
 
-
               nameEl.textContent =
                 name;
-
 
               namesWrap.appendChild(
                 nameEl
@@ -2535,16 +2455,13 @@
             }
           );
 
-
           groupEl.appendChild(
             title
           );
 
-
           groupEl.appendChild(
             namesWrap
           );
-
 
           groupsContainer.appendChild(
             groupEl
@@ -2552,15 +2469,18 @@
 
         }
       );
-
     }
 
 
     function resetGroups() {
 
-      groupsContainer.innerHTML =
-        '<div class="group-placeholder">GENERATE GROUPS</div>';
+      const names =
+        getCurrentGroupNames();
 
+      groupsContainer.innerHTML =
+        names.length
+          ? '<div class="group-placeholder">GENERATE GROUPS</div>'
+          : '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
     }
 
 
@@ -2569,11 +2489,9 @@
       const selectedClass =
         groupClassSelect.value;
 
-
       groupEditor
         .classList
         .toggle("hidden");
-
 
       if (
         !groupEditor
@@ -2585,17 +2503,13 @@
           .textContent =
           `${selectedClass} CLASS LIST`;
 
-
         groupNamesInput.value =
           groupClasses[
             selectedClass
           ].join("\n");
 
-
         groupNamesInput.focus();
-
       }
-
     }
 
 
@@ -2603,7 +2517,6 @@
 
       const selectedClass =
         groupClassSelect.value;
-
 
       groupClasses[
         selectedClass
@@ -2620,7 +2533,6 @@
               name.toUpperCase()
           );
 
-
       saveArray(
         groupStorageKeys[
           selectedClass
@@ -2630,61 +2542,67 @@
         ]
       );
 
-
       groupEditor
         .classList
         .add("hidden");
 
-
       resetGroups();
-
     }
 
 
-    groupClassSelect
-      .addEventListener(
-        "change",
-        () => {
+    groupClassSelect.addEventListener(
+      "change",
+      () => {
 
-          groupEditor
-            .classList
-            .add("hidden");
+        groupEditor
+          .classList
+          .add("hidden");
 
+        resetGroups();
 
-          resetGroups();
+      }
+    );
 
-        }
-      );
+    groupGenerateBtn.addEventListener(
+      "click",
+      generateGroups
+    );
 
+    groupResetBtn.addEventListener(
+      "click",
+      resetGroups
+    );
 
-    groupGenerateBtn
-      .addEventListener(
-        "click",
-        generateGroups
-      );
-
-
-    groupResetBtn
-      .addEventListener(
-        "click",
-        resetGroups
-      );
-
-
-    groupSaveBtn
-      .addEventListener(
-        "click",
-        saveGroupNames
-      );
+    groupSaveBtn.addEventListener(
+      "click",
+      saveGroupNames
+    );
 
 
-    /* ================================================================
-       KEYBOARD SHORTCUTS
-    ================================================================ */
+    /* KEYBOARD SHORTCUTS */
 
     document.addEventListener(
       "keydown",
       event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeHelp();
+
+          themePanel
+            .classList
+            .add("hidden");
+        }
+
+        if (
+          !helpOverlay
+            .classList
+            .contains("hidden")
+        ) {
+          return;
+        }
 
         const typing =
           [
@@ -2699,15 +2617,12 @@
           event.target
             .isContentEditable;
 
-
         if (
           typing
         ) {
           return;
         }
 
-
-        /* TIMER */
 
         if (
           activeTool === "timer"
@@ -2716,28 +2631,19 @@
           if (
             event.code === "Space"
           ) {
-
             event.preventDefault();
-
             toggleTimer();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
-
             resetTimer();
-
           }
-
         }
 
-
-        /* NAMES */
 
         if (
           activeTool === "names"
@@ -2746,61 +2652,43 @@
           if (
             event.code === "Space"
           ) {
-
             event.preventDefault();
-
             pickName();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "e"
           ) {
-
             toggleNameEditor();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
-            === "g"
+            === "s"
           ) {
-
-            toggleNameGentle();
-
+            toggleNameSkip();
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "n"
           ) {
-
             toggleNameRepeats();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
-
             resetNamePicker();
-
           }
-
         }
 
-
-        /* GROUPS */
 
         if (
           activeTool === "groups"
@@ -2809,35 +2697,25 @@
           if (
             event.code === "Space"
           ) {
-
             event.preventDefault();
-
             generateGroups();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "e"
           ) {
-
             toggleGroupEditor();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
-
             resetGroups();
-
           }
-
         }
 
       }
@@ -2845,6 +2723,7 @@
 
 
     updateTimerDisplay();
+    resetGroups();
 
   </script>
 
