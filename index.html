@@ -108,7 +108,7 @@
       padding-right: 0.3rem;
     }
 
-    /* THEME PANEL */
+    /* THEME */
 
     .theme-panel {
       position: fixed;
@@ -679,6 +679,7 @@
   </nav>
 
   <div class="utility-nav">
+
     <button
       id="help-button"
       class="utility-button"
@@ -694,13 +695,17 @@
     >
       THEME
     </button>
+
   </div>
 
 
   <!-- THEME -->
 
   <div id="theme-panel" class="theme-panel hidden">
-    <label for="theme-color">BACKGROUND</label>
+
+    <label for="theme-color">
+      BACKGROUND
+    </label>
 
     <input
       id="theme-color"
@@ -711,6 +716,7 @@
     <button id="theme-reset">
       BLACK
     </button>
+
   </div>
 
 
@@ -722,9 +728,7 @@
 
       <div class="help-header">
 
-        <h2>
-          HELP
-        </h2>
+        <h2>HELP</h2>
 
         <button id="help-close">
           CLOSE
@@ -829,15 +833,12 @@
   <section id="timer-tool" class="tool-view active">
 
     <div class="timer-top">
-
       <button data-timer-minutes="1">1 MIN</button>
       <button data-timer-minutes="2">2 MIN</button>
       <button data-timer-minutes="5">5 MIN</button>
       <button data-timer-minutes="10">10 MIN</button>
       <button id="timer-reading">READING</button>
-
     </div>
-
 
     <main class="timer-wrap">
 
@@ -850,7 +851,6 @@
       </div>
 
     </main>
-
 
     <div class="timer-bottom">
 
@@ -877,7 +877,6 @@
     >
       🦅
     </div>
-
 
     <main id="name-main">
 
@@ -907,13 +906,11 @@
 
       <textarea id="name-names-input"></textarea>
 
-
       <h3>
         SKIP LIST (OPTIONAL)
       </h3>
 
       <textarea id="name-skip-input"></textarea>
-
 
       <button id="name-save">
         SAVE
@@ -1014,7 +1011,7 @@
 
   <script>
 
-    /* DEFAULTS */
+    /* DEFAULT CLASS LISTS */
 
     const DEFAULT_8AB = [
       "ANELEIGH",
@@ -1040,8 +1037,11 @@
       "THOMAS",
       "BRENT",
       "MILAN",
-      "ALEXANDRA"
+      "ALEXANDRA",
+      "ROY",
+      "ISAIAH"
     ];
+
 
     const DEFAULT_8JR = [
       "LOGAN",
@@ -1068,8 +1068,11 @@
       "CHYENNE",
       "TORI",
       "COLTEN",
-      "TAYLA"
+      "TAYLA",
+      "ASA",
+      "LINCOLN"
     ];
+
 
     const DEFAULT_SKIP = [
       "ANELEIGH",
@@ -1101,11 +1104,15 @@
       key,
       fallback = []
     ) {
+
       try {
+
         const saved =
           localStorage.getItem(key);
 
-        if (saved === null) {
+        if (
+          saved === null
+        ) {
           return [...fallback];
         }
 
@@ -1115,11 +1122,13 @@
         return Array.isArray(parsed)
           ? parsed
           : [...fallback];
+
       }
 
       catch {
         return [...fallback];
       }
+
     }
 
 
@@ -1127,10 +1136,12 @@
       key,
       array
     ) {
+
       localStorage.setItem(
         key,
         JSON.stringify(array)
       );
+
     }
 
 
@@ -1153,6 +1164,7 @@
 
 
     function openHelp() {
+
       helpOverlay
         .classList
         .remove("hidden");
@@ -1160,13 +1172,16 @@
       themePanel
         .classList
         .add("hidden");
+
     }
 
 
     function closeHelp() {
+
       helpOverlay
         .classList
         .add("hidden");
+
     }
 
 
@@ -1175,10 +1190,12 @@
       openHelp
     );
 
+
     helpClose.addEventListener(
       "click",
       closeHelp
     );
+
 
     helpOverlay.addEventListener(
       "click",
@@ -1187,7 +1204,9 @@
         if (
           event.target === helpOverlay
         ) {
+
           closeHelp();
+
         }
 
       }
@@ -1301,12 +1320,14 @@
             : "rgba(0,0,0,0.12)"
         );
 
-      themeColor.value = color;
+      themeColor.value =
+        color;
 
       localStorage.setItem(
         STORAGE.theme,
         color
       );
+
     }
 
 
@@ -1323,21 +1344,27 @@
       }
     );
 
+
     themeColor.addEventListener(
       "input",
       () => {
+
         applyTheme(
           themeColor.value
         );
+
       }
     );
+
 
     themeReset.addEventListener(
       "click",
       () => {
+
         applyTheme(
           "#000000"
         );
+
       }
     );
 
@@ -1348,6 +1375,7 @@
       )
       ||
       "#000000";
+
 
     applyTheme(
       savedTheme
@@ -1377,19 +1405,23 @@
 
       toolTabs.forEach(
         tab => {
+
           tab.classList.toggle(
             "active",
             tab.dataset.tool === tool
           );
+
         }
       );
 
       toolViews.forEach(
         view => {
+
           view.classList.toggle(
             "active",
             view.id === `${tool}-tool`
           );
+
         }
       );
 
@@ -1399,36 +1431,49 @@
 
       closeHelp();
 
-      if (tool === "timer") {
+      if (
+        tool === "timer"
+      ) {
+
         updateTimerDisplay();
+
       }
 
       else if (
         tool === "names"
       ) {
+
         document.title =
           "RANDOM NAME PICKER";
+
       }
 
       else if (
         tool === "groups"
       ) {
+
         document.title =
           "RANDOM GROUP GENERATOR";
+
       }
+
     }
 
 
     toolTabs.forEach(
       tab => {
+
         tab.addEventListener(
           "click",
           () => {
+
             switchTool(
               tab.dataset.tool
             );
+
           }
         );
+
       }
     );
 
@@ -1502,6 +1547,7 @@
         String(secs)
           .padStart(2,"0")
       );
+
     }
 
 
@@ -1518,9 +1564,12 @@
       if (
         activeTool === "timer"
       ) {
+
         document.title =
           `${time} — TIMER`;
+
       }
+
     }
 
 
@@ -1532,7 +1581,8 @@
           .trim()
           .replace(/\s/g,"");
 
-      let seconds = 0;
+      let seconds =
+        0;
 
       if (
         value.includes(":")
@@ -1561,6 +1611,7 @@
           minutes * 60
           +
           secs;
+
       }
 
       else {
@@ -1571,11 +1622,14 @@
         if (
           !isNaN(minutes)
         ) {
+
           seconds =
             Math.round(
               minutes * 60
             );
+
         }
+
       }
 
       timerRemainingSeconds =
@@ -1588,6 +1642,7 @@
         timerRemainingSeconds;
 
       updateTimerDisplay();
+
     }
 
 
@@ -1606,6 +1661,7 @@
       timerStartPauseBtn
         .textContent =
         "START";
+
     }
 
 
@@ -1627,6 +1683,7 @@
       timerTool
         .classList
         .add("flash");
+
     }
 
 
@@ -1652,11 +1709,15 @@
       if (
         timerRemainingSeconds <= 0
       ) {
+
         finishTimer();
+
         return;
+
       }
 
       updateTimerDisplay();
+
     }
 
 
@@ -1667,8 +1728,11 @@
         ===
         timerDisplay
       ) {
+
         parseTypedTimer();
+
         timerDisplay.blur();
+
       }
 
       if (
@@ -1700,6 +1764,7 @@
         );
 
       timerTick();
+
     }
 
 
@@ -1724,7 +1789,9 @@
         );
 
       stopTimer();
+
       updateTimerDisplay();
+
     }
 
 
@@ -1733,12 +1800,17 @@
       if (
         timerRunning
       ) {
+
         pauseTimer();
+
       }
 
       else {
+
         startTimer();
+
       }
+
     }
 
 
@@ -1757,6 +1829,7 @@
         .remove("flash");
 
       updateTimerDisplay();
+
     }
 
 
@@ -1772,6 +1845,7 @@
         .remove("flash");
 
       updateTimerDisplay();
+
     }
 
 
@@ -1815,8 +1889,11 @@
       if (
         timerRemainingSeconds > 0
       ) {
+
         startTimer();
+
       }
+
     }
 
 
@@ -1850,10 +1927,12 @@
       startReadingTimer
     );
 
+
     timerStartPauseBtn.addEventListener(
       "click",
       toggleTimer
     );
+
 
     timerResetBtn.addEventListener(
       "click",
@@ -1868,7 +1947,9 @@
         if (
           timerRunning
         ) {
+
           pauseTimer();
+
         }
 
         const range =
@@ -1886,6 +1967,7 @@
         selection.addRange(
           range
         );
+
       }
     );
 
@@ -1905,6 +1987,7 @@
           timerDisplay.blur();
 
           startTimer();
+
         }
 
       }
@@ -1940,7 +2023,9 @@
         if (
           !timerRunning
         ) {
+
           parseTypedTimer();
+
         }
 
       }
@@ -2028,6 +2113,7 @@
       nameDisplay
         .classList
         .add("flip");
+
     }
 
 
@@ -2036,9 +2122,12 @@
       if (
         !nameNames.length
       ) {
+
         nameDisplay.textContent =
           "PRESS E TO EDIT NAMES";
+
         return;
+
       }
 
       let base =
@@ -2049,20 +2138,25 @@
       if (
         nameSkipMode
       ) {
+
         base =
           base.filter(
             name =>
               !nameSkipList
                 .includes(name)
           );
+
       }
 
       if (
         !base.length
       ) {
+
         nameDisplay.textContent =
           "RESET TO START AGAIN";
+
         return;
+
       }
 
       const randomIndex =
@@ -2092,12 +2186,16 @@
         if (
           index !== -1
         ) {
+
           namePool.splice(
             index,
             1
           );
+
         }
+
       }
+
     }
 
 
@@ -2110,6 +2208,7 @@
         nameNames.length
           ? "CLICK OR PRESS SPACE"
           : "PRESS E TO EDIT NAMES";
+
     }
 
 
@@ -2124,6 +2223,7 @@
           "on",
           nameSkipMode
         );
+
     }
 
 
@@ -2138,6 +2238,7 @@
           "on",
           !nameNoRepeats
         );
+
     }
 
 
@@ -2161,7 +2262,9 @@
             .join("\n");
 
         nameNamesInput.focus();
+
       }
+
     }
 
 
@@ -2208,6 +2311,7 @@
       nameEditor
         .classList
         .add("hidden");
+
     }
 
 
@@ -2216,15 +2320,18 @@
       pickName
     );
 
+
     nameResetBtn.addEventListener(
       "click",
       resetNamePicker
     );
 
+
     nameSaveBtn.addEventListener(
       "click",
       saveNameLists
     );
+
 
     resetNamePicker();
 
@@ -2310,6 +2417,7 @@
       return groupClasses[
         groupClassSelect.value
       ];
+
     }
 
 
@@ -2342,9 +2450,11 @@
           copy[j],
           copy[i]
         ];
+
       }
 
       return copy;
+
     }
 
 
@@ -2356,9 +2466,12 @@
       if (
         !names.length
       ) {
+
         groupsContainer.innerHTML =
           '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
+
         return;
+
       }
 
       const size =
@@ -2468,6 +2581,7 @@
 
         }
       );
+
     }
 
 
@@ -2480,6 +2594,7 @@
         names.length
           ? '<div class="group-placeholder">GENERATE GROUPS</div>'
           : '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
+
     }
 
 
@@ -2508,7 +2623,9 @@
           ].join("\n");
 
         groupNamesInput.focus();
+
       }
+
     }
 
 
@@ -2546,6 +2663,7 @@
         .add("hidden");
 
       resetGroups();
+
     }
 
 
@@ -2562,15 +2680,18 @@
       }
     );
 
+
     groupGenerateBtn.addEventListener(
       "click",
       generateGroups
     );
 
+
     groupResetBtn.addEventListener(
       "click",
       resetGroups
     );
+
 
     groupSaveBtn.addEventListener(
       "click",
@@ -2593,7 +2714,9 @@
           themePanel
             .classList
             .add("hidden");
+
         }
+
 
         if (
           !helpOverlay
@@ -2602,6 +2725,7 @@
         ) {
           return;
         }
+
 
         const typing =
           [
@@ -2616,12 +2740,15 @@
           event.target
             .isContentEditable;
 
+
         if (
           typing
         ) {
           return;
         }
 
+
+        /* TIMER */
 
         if (
           activeTool === "timer"
@@ -2630,19 +2757,28 @@
           if (
             event.code === "Space"
           ) {
+
             event.preventDefault();
+
             toggleTimer();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
+
             resetTimer();
+
           }
+
         }
 
+
+        /* NAMES */
 
         if (
           activeTool === "names"
@@ -2651,43 +2787,69 @@
           if (
             event.code === "Space"
           ) {
+
             event.preventDefault();
+
             pickName();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "e"
           ) {
+
+            event.preventDefault();
+
             toggleNameEditor();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "s"
           ) {
+
+            event.preventDefault();
+
             toggleNameSkip();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "n"
           ) {
+
+            event.preventDefault();
+
             toggleNameRepeats();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
+
+            event.preventDefault();
+
             resetNamePicker();
+
           }
+
         }
 
+
+        /* GROUPS */
 
         if (
           activeTool === "groups"
@@ -2696,25 +2858,39 @@
           if (
             event.code === "Space"
           ) {
+
             event.preventDefault();
+
             generateGroups();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "e"
           ) {
+
+            event.preventDefault();
+
             toggleGroupEditor();
+
           }
+
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
+
+            event.preventDefault();
+
             resetGroups();
+
           }
+
         }
 
       }
@@ -2728,4 +2904,3 @@
 
 </body>
 </html>
-```
