@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -251,7 +252,7 @@
       display: flex;
     }
 
-    /* TIMER */
+    /* TIMER / STOPWATCH */
 
     #timer-tool {
       flex-direction: column;
@@ -265,6 +266,12 @@
       gap: 0.4rem;
       padding: 1.5rem 1rem 0;
       flex-wrap: wrap;
+      min-height: 2.25rem;
+    }
+
+    .timer-top.hidden {
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .timer-top button {
@@ -286,6 +293,14 @@
       padding: 1rem;
     }
 
+    .timer-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.1rem;
+    }
+
     #timer-display {
       font-size: clamp(7rem, 22vw, 20rem);
       font-weight: 800;
@@ -299,9 +314,28 @@
       text-align: center;
     }
 
+    #timer-display.stopwatch {
+      cursor: default;
+      user-select: none;
+    }
+
     #timer-display::selection {
       background: var(--text);
       color: var(--bg);
+    }
+
+    #timer-mode-toggle {
+      border: none;
+      background: transparent;
+      color: var(--text);
+      padding: 0.2rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    #timer-mode-toggle:hover {
+      text-decoration: underline;
+      opacity: 1;
     }
 
     .timer-bottom {
@@ -628,7 +662,6 @@
     /* RESPONSIVE */
 
     @media (max-width: 700px) {
-
       .tool-nav {
         top: 0.65rem;
         left: 0.65rem;
@@ -670,8 +703,6 @@
 
 <body>
 
-  <!-- NAV -->
-
   <nav class="tool-nav">
     <button class="tool-tab active" data-tool="timer">TIMER</button>
     <button class="tool-tab" data-tool="names">NAMES</button>
@@ -679,7 +710,6 @@
   </nav>
 
   <div class="utility-nav">
-
     <button
       id="help-button"
       class="utility-button"
@@ -695,17 +725,10 @@
     >
       THEME
     </button>
-
   </div>
 
-
-  <!-- THEME -->
-
   <div id="theme-panel" class="theme-panel hidden">
-
-    <label for="theme-color">
-      BACKGROUND
-    </label>
+    <label for="theme-color">BACKGROUND</label>
 
     <input
       id="theme-color"
@@ -716,30 +739,23 @@
     <button id="theme-reset">
       BLACK
     </button>
-
   </div>
-
-
-  <!-- HELP -->
 
   <div id="help-overlay" class="hidden">
 
     <div class="help-card">
 
       <div class="help-header">
-
         <h2>HELP</h2>
 
         <button id="help-close">
           CLOSE
         </button>
-
       </div>
-
 
       <section class="help-section">
 
-        <h3>TIMER</h3>
+        <h3>TIMER / STOPWATCH</h3>
 
         <div class="shortcut-row">
           <div class="shortcut-key">SPACE</div>
@@ -753,11 +769,14 @@
 
         <div class="shortcut-row">
           <div class="shortcut-key">CLICK TIME</div>
-          <div>TYPE A CUSTOM TIME</div>
+          <div>TYPE A CUSTOM COUNTDOWN TIME</div>
+        </div>
+
+        <div class="help-copy">
+          Use the small STOPWATCH / TIMER button beneath the numbers to switch modes.
         </div>
 
       </section>
-
 
       <section class="help-section">
 
@@ -790,7 +809,6 @@
 
       </section>
 
-
       <section class="help-section">
 
         <h3>SKIP LIST</h3>
@@ -800,7 +818,6 @@
         </div>
 
       </section>
-
 
       <section class="help-section">
 
@@ -827,12 +844,11 @@
 
   </div>
 
-
-  <!-- TIMER -->
+  <!-- TIMER / STOPWATCH -->
 
   <section id="timer-tool" class="tool-view active">
 
-    <div class="timer-top">
+    <div id="timer-presets" class="timer-top">
       <button data-timer-minutes="1">1 MIN</button>
       <button data-timer-minutes="2">2 MIN</button>
       <button data-timer-minutes="5">5 MIN</button>
@@ -842,30 +858,30 @@
 
     <main class="timer-wrap">
 
-      <div
-        id="timer-display"
-        contenteditable="true"
-        spellcheck="false"
-      >
-        05:00
+      <div class="timer-stage">
+
+        <div
+          id="timer-display"
+          contenteditable="true"
+          spellcheck="false"
+        >
+          05:00
+        </div>
+
+        <button id="timer-mode-toggle">
+          STOPWATCH
+        </button>
+
       </div>
 
     </main>
 
     <div class="timer-bottom">
-
-      <button id="timer-start-pause">
-        START
-      </button>
-
-      <button id="timer-reset">
-        RESET
-      </button>
-
+      <button id="timer-start-pause">START</button>
+      <button id="timer-reset">RESET</button>
     </div>
 
   </section>
-
 
   <!-- NAMES -->
 
@@ -897,18 +913,13 @@
 
     </main>
 
-
     <section id="name-editor" class="hidden">
 
-      <h2>
-        CLASS LIST
-      </h2>
+      <h2>CLASS LIST</h2>
 
       <textarea id="name-names-input"></textarea>
 
-      <h3>
-        SKIP LIST (OPTIONAL)
-      </h3>
+      <h3>SKIP LIST (OPTIONAL)</h3>
 
       <textarea id="name-skip-input"></textarea>
 
@@ -918,17 +929,13 @@
 
     </section>
 
-
     <footer class="name-footer">
-
       <button id="name-reset">
         RESET
       </button>
-
     </footer>
 
   </section>
-
 
   <!-- GROUPS -->
 
@@ -967,21 +974,17 @@
 
       </div>
 
-
       <div id="groups-wrap">
 
         <div id="groups-container">
-
           <div class="group-placeholder">
             GENERATE GROUPS
           </div>
-
         </div>
 
       </div>
 
     </main>
-
 
     <section id="group-editor" class="hidden">
 
@@ -997,17 +1000,13 @@
 
     </section>
 
-
     <footer class="group-footer">
-
       <button id="group-reset">
         RESET
       </button>
-
     </footer>
 
   </section>
-
 
   <script>
 
@@ -1042,7 +1041,6 @@
       "ISAIAH"
     ];
 
-
     const DEFAULT_8JR = [
       "LOGAN",
       "ABEL",
@@ -1073,46 +1071,24 @@
       "LINCOLN"
     ];
 
-
-    const DEFAULT_SKIP = [
-      "ANELEIGH",
-      "BELLA"
-    ];
-
+    const DEFAULT_SKIP = [];
 
     /* STORAGE */
 
     const STORAGE = {
-      nameList:
-        "adamClassroomTools_nameList",
-
-      skipList:
-        "adamClassroomTools_skipList",
-
-      class8AB:
-        "adamClassroomTools_8AB",
-
-      class8JR:
-        "adamClassroomTools_8JR",
-
-      theme:
-        "adamClassroomTools_theme"
+      nameList: "adamClassroomTools_nameList_v2",
+      skipList: "adamClassroomTools_skipList_v2",
+      class8AB: "adamClassroomTools_8AB_v2",
+      class8JR: "adamClassroomTools_8JR_v2",
+      theme: "adamClassroomTools_theme"
     };
 
-
-    function loadArray(
-      key,
-      fallback = []
-    ) {
-
+    function loadArray(key, fallback = []) {
       try {
-
         const saved =
           localStorage.getItem(key);
 
-        if (
-          saved === null
-        ) {
+        if (saved === null) {
           return [...fallback];
         }
 
@@ -1122,80 +1098,49 @@
         return Array.isArray(parsed)
           ? parsed
           : [...fallback];
-
       }
 
       catch {
         return [...fallback];
       }
-
     }
 
-
-    function saveArray(
-      key,
-      array
-    ) {
-
+    function saveArray(key, array) {
       localStorage.setItem(
         key,
         JSON.stringify(array)
       );
-
     }
-
 
     /* HELP */
 
     const helpButton =
-      document.getElementById(
-        "help-button"
-      );
+      document.getElementById("help-button");
 
     const helpOverlay =
-      document.getElementById(
-        "help-overlay"
-      );
+      document.getElementById("help-overlay");
 
     const helpClose =
-      document.getElementById(
-        "help-close"
-      );
-
+      document.getElementById("help-close");
 
     function openHelp() {
-
-      helpOverlay
-        .classList
-        .remove("hidden");
-
-      themePanel
-        .classList
-        .add("hidden");
-
+      helpOverlay.classList.remove("hidden");
+      themePanel.classList.add("hidden");
     }
-
 
     function closeHelp() {
-
-      helpOverlay
-        .classList
-        .add("hidden");
-
+      helpOverlay.classList.add("hidden");
     }
-
 
     helpButton.addEventListener(
       "click",
       openHelp
     );
 
-
     helpClose.addEventListener(
       "click",
       closeHelp
     );
-
 
     helpOverlay.addEventListener(
       "click",
@@ -1204,40 +1149,27 @@
         if (
           event.target === helpOverlay
         ) {
-
           closeHelp();
-
         }
 
       }
     );
 
-
     /* THEME */
 
     const themeButton =
-      document.getElementById(
-        "theme-button"
-      );
+      document.getElementById("theme-button");
 
     const themePanel =
-      document.getElementById(
-        "theme-panel"
-      );
+      document.getElementById("theme-panel");
 
     const themeColor =
-      document.getElementById(
-        "theme-color"
-      );
+      document.getElementById("theme-color");
 
     const themeReset =
-      document.getElementById(
-        "theme-reset"
-      );
-
+      document.getElementById("theme-reset");
 
     function getContrastColor(hex) {
-
       const color =
         hex.replace("#", "");
 
@@ -1273,9 +1205,7 @@
         : "#ffffff";
     }
 
-
     function applyTheme(color) {
-
       const textColor =
         getContrastColor(color);
 
@@ -1327,9 +1257,7 @@
         STORAGE.theme,
         color
       );
-
     }
-
 
     themeButton.addEventListener(
       "click",
@@ -1344,30 +1272,23 @@
       }
     );
 
-
     themeColor.addEventListener(
       "input",
       () => {
-
         applyTheme(
           themeColor.value
         );
-
       }
     );
-
 
     themeReset.addEventListener(
       "click",
       () => {
-
         applyTheme(
           "#000000"
         );
-
       }
     );
-
 
     const savedTheme =
       localStorage.getItem(
@@ -1376,11 +1297,9 @@
       ||
       "#000000";
 
-
     applyTheme(
       savedTheme
     );
-
 
     /* NAVIGATION */
 
@@ -1397,31 +1316,25 @@
     let activeTool =
       "timer";
 
-
     function switchTool(tool) {
-
       activeTool =
         tool;
 
       toolTabs.forEach(
         tab => {
-
           tab.classList.toggle(
             "active",
             tab.dataset.tool === tool
           );
-
         }
       );
 
       toolViews.forEach(
         view => {
-
           view.classList.toggle(
             "active",
             view.id === `${tool}-tool`
           );
-
         }
       );
 
@@ -1434,51 +1347,38 @@
       if (
         tool === "timer"
       ) {
-
-        updateTimerDisplay();
-
+        updateMainTimeDisplay();
       }
 
       else if (
         tool === "names"
       ) {
-
         document.title =
           "RANDOM NAME PICKER";
-
       }
 
       else if (
         tool === "groups"
       ) {
-
         document.title =
           "RANDOM GROUP GENERATOR";
-
       }
-
     }
-
 
     toolTabs.forEach(
       tab => {
-
         tab.addEventListener(
           "click",
           () => {
-
             switchTool(
               tab.dataset.tool
             );
-
           }
         );
-
       }
     );
 
-
-    /* TIMER */
+    /* TIMER / STOPWATCH */
 
     const timerTool =
       document.getElementById(
@@ -1505,6 +1405,18 @@
         "timer-reading"
       );
 
+    const timerModeToggle =
+      document.getElementById(
+        "timer-mode-toggle"
+      );
+
+    const timerPresets =
+      document.getElementById(
+        "timer-presets"
+      );
+
+    let timeMode =
+      "timer";
 
     let timerDefaultSeconds =
       5 * 60;
@@ -1521,13 +1433,23 @@
     let timerInterval =
       null;
 
+    let stopwatchElapsedMs =
+      0;
 
-    function formatTimerTime(seconds) {
+    let stopwatchStartTime =
+      null;
 
+    let stopwatchRunning =
+      false;
+
+    let stopwatchInterval =
+      null;
+
+    function formatTime(seconds) {
       seconds =
         Math.max(
           0,
-          Math.ceil(seconds)
+          Math.floor(seconds)
         );
 
       const mins =
@@ -1547,16 +1469,30 @@
         String(secs)
           .padStart(2,"0")
       );
-
     }
 
+    function updateMainTimeDisplay() {
 
-    function updateTimerDisplay() {
+      let time;
 
-      const time =
-        formatTimerTime(
-          timerRemainingSeconds
-        );
+      if (
+        timeMode === "timer"
+      ) {
+        time =
+          formatTime(
+            Math.ceil(
+              timerRemainingSeconds
+            )
+          );
+      }
+
+      else {
+        time =
+          formatTime(
+            stopwatchElapsedMs /
+            1000
+          );
+      }
 
       timerDisplay.textContent =
         time;
@@ -1564,16 +1500,388 @@
       if (
         activeTool === "timer"
       ) {
-
         document.title =
-          `${time} — TIMER`;
+          `${time} — ${
+            timeMode === "timer"
+              ? "TIMER"
+              : "STOPWATCH"
+          }`;
+      }
+    }
+
+    function stopCountdown() {
+      timerRunning =
+        false;
+
+      clearInterval(
+        timerInterval
+      );
+
+      timerInterval =
+        null;
+    }
+
+    function stopStopwatch() {
+      stopwatchRunning =
+        false;
+
+      clearInterval(
+        stopwatchInterval
+      );
+
+      stopwatchInterval =
+        null;
+    }
+
+    function stopCurrentClock() {
+      if (
+        timeMode === "timer"
+      ) {
+        pauseCountdown();
+      }
+
+      else {
+        pauseStopwatch();
+      }
+    }
+
+    function updateStartPauseLabel() {
+      const running =
+        timeMode === "timer"
+          ? timerRunning
+          : stopwatchRunning;
+
+      timerStartPauseBtn
+        .textContent =
+        running
+          ? "PAUSE"
+          : "START";
+    }
+
+    function finishCountdown() {
+      stopCountdown();
+
+      timerRemainingSeconds =
+        0;
+
+      updateMainTimeDisplay();
+
+      updateStartPauseLabel();
+
+      timerTool
+        .classList
+        .remove("flash");
+
+      void timerTool.offsetWidth;
+
+      timerTool
+        .classList
+        .add("flash");
+    }
+
+    function countdownTick() {
+
+      if (
+        !timerRunning
+        ||
+        !timerEndTime
+      ) {
+        return;
+      }
+
+      timerRemainingSeconds =
+        (
+          timerEndTime
+          -
+          Date.now()
+        )
+        /
+        1000;
+
+      if (
+        timerRemainingSeconds <= 0
+      ) {
+        finishCountdown();
+        return;
+      }
+
+      updateMainTimeDisplay();
+    }
+
+    function startCountdown() {
+
+      if (
+        document.activeElement
+        === timerDisplay
+      ) {
+        parseTypedTimer();
+        timerDisplay.blur();
+      }
+
+      if (
+        timerRemainingSeconds <= 0
+      ) {
+        return;
+      }
+
+      timerRunning =
+        true;
+
+      timerEndTime =
+        Date.now()
+        +
+        timerRemainingSeconds *
+        1000;
+
+      clearInterval(
+        timerInterval
+      );
+
+      timerInterval =
+        setInterval(
+          countdownTick,
+          100
+        );
+
+      updateStartPauseLabel();
+
+      countdownTick();
+    }
+
+    function pauseCountdown() {
+
+      if (
+        !timerRunning
+      ) {
+        return;
+      }
+
+      timerRemainingSeconds =
+        Math.max(
+          0,
+          (
+            timerEndTime
+            -
+            Date.now()
+          )
+          /
+          1000
+        );
+
+      stopCountdown();
+
+      updateStartPauseLabel();
+
+      updateMainTimeDisplay();
+    }
+
+    function stopwatchTick() {
+
+      if (
+        !stopwatchRunning
+      ) {
+        return;
+      }
+
+      stopwatchElapsedMs =
+        Date.now()
+        -
+        stopwatchStartTime;
+
+      updateMainTimeDisplay();
+    }
+
+    function startStopwatch() {
+
+      stopwatchRunning =
+        true;
+
+      stopwatchStartTime =
+        Date.now()
+        -
+        stopwatchElapsedMs;
+
+      clearInterval(
+        stopwatchInterval
+      );
+
+      stopwatchInterval =
+        setInterval(
+          stopwatchTick,
+          100
+        );
+
+      updateStartPauseLabel();
+
+      stopwatchTick();
+    }
+
+    function pauseStopwatch() {
+
+      if (
+        !stopwatchRunning
+      ) {
+        return;
+      }
+
+      stopwatchElapsedMs =
+        Date.now()
+        -
+        stopwatchStartTime;
+
+      stopStopwatch();
+
+      updateStartPauseLabel();
+
+      updateMainTimeDisplay();
+    }
+
+    function toggleClock() {
+
+      if (
+        timeMode === "timer"
+      ) {
+
+        if (
+          timerRunning
+        ) {
+          pauseCountdown();
+        }
+
+        else {
+          startCountdown();
+        }
 
       }
 
+      else {
+
+        if (
+          stopwatchRunning
+        ) {
+          pauseStopwatch();
+        }
+
+        else {
+          startStopwatch();
+        }
+
+      }
     }
 
+    function resetCurrentClock() {
+
+      timerTool
+        .classList
+        .remove("flash");
+
+      if (
+        timeMode === "timer"
+      ) {
+
+        stopCountdown();
+
+        timerRemainingSeconds =
+          timerDefaultSeconds;
+
+      }
+
+      else {
+
+        stopStopwatch();
+
+        stopwatchElapsedMs =
+          0;
+
+      }
+
+      updateStartPauseLabel();
+
+      updateMainTimeDisplay();
+    }
+
+    function setTimer(minutes) {
+
+      if (
+        timeMode !== "timer"
+      ) {
+        return;
+      }
+
+      stopCountdown();
+
+      timerDefaultSeconds =
+        minutes * 60;
+
+      timerRemainingSeconds =
+        timerDefaultSeconds;
+
+      timerTool
+        .classList
+        .remove("flash");
+
+      updateStartPauseLabel();
+
+      updateMainTimeDisplay();
+    }
+
+    function startReadingTimer() {
+
+      if (
+        timeMode !== "timer"
+      ) {
+        return;
+      }
+
+      stopCountdown();
+
+      const now =
+        new Date();
+
+      const readingEnd =
+        new Date();
+
+      readingEnd.setHours(
+        14,
+        17,
+        0,
+        0
+      );
+
+      const difference =
+        (
+          readingEnd
+          -
+          now
+        )
+        /
+        1000;
+
+      timerRemainingSeconds =
+        Math.max(
+          0,
+          difference
+        );
+
+      timerDefaultSeconds =
+        timerRemainingSeconds;
+
+      updateMainTimeDisplay();
+
+      if (
+        timerRemainingSeconds > 0
+      ) {
+        startCountdown();
+      }
+    }
 
     function parseTypedTimer() {
+
+      if (
+        timeMode !== "timer"
+      ) {
+        return;
+      }
 
       const value =
         timerDisplay
@@ -1622,12 +1930,10 @@
         if (
           !isNaN(minutes)
         ) {
-
           seconds =
             Math.round(
               minutes * 60
             );
-
         }
 
       }
@@ -1641,261 +1947,83 @@
       timerDefaultSeconds =
         timerRemainingSeconds;
 
-      updateTimerDisplay();
-
+      updateMainTimeDisplay();
     }
 
-
-    function stopTimer() {
-
-      timerRunning =
-        false;
-
-      clearInterval(
-        timerInterval
-      );
-
-      timerInterval =
-        null;
-
-      timerStartPauseBtn
-        .textContent =
-        "START";
-
-    }
-
-
-    function finishTimer() {
-
-      stopTimer();
-
-      timerRemainingSeconds =
-        0;
-
-      updateTimerDisplay();
-
-      timerTool
-        .classList
-        .remove("flash");
-
-      void timerTool.offsetWidth;
-
-      timerTool
-        .classList
-        .add("flash");
-
-    }
-
-
-    function timerTick() {
+    function switchTimeMode() {
 
       if (
-        !timerRunning
-        ||
-        !timerEndTime
-      ) {
-        return;
-      }
-
-      timerRemainingSeconds =
-        (
-          timerEndTime
-          -
-          Date.now()
-        )
-        /
-        1000;
-
-      if (
-        timerRemainingSeconds <= 0
+        timeMode === "timer"
       ) {
 
-        finishTimer();
+        if (
+          timerRunning
+        ) {
+          pauseCountdown();
+        }
 
-        return;
+        timeMode =
+          "stopwatch";
 
-      }
-
-      updateTimerDisplay();
-
-    }
-
-
-    function startTimer() {
-
-      if (
-        document.activeElement
-        ===
         timerDisplay
-      ) {
+          .classList
+          .add("stopwatch");
 
-        parseTypedTimer();
+        timerDisplay
+          .setAttribute(
+            "contenteditable",
+            "false"
+          );
 
-        timerDisplay.blur();
+        timerPresets
+          .classList
+          .add("hidden");
 
-      }
-
-      if (
-        timerRemainingSeconds <= 0
-      ) {
-        return;
-      }
-
-      timerRunning =
-        true;
-
-      timerEndTime =
-        Date.now()
-        +
-        timerRemainingSeconds * 1000;
-
-      timerStartPauseBtn
-        .textContent =
-        "PAUSE";
-
-      clearInterval(
-        timerInterval
-      );
-
-      timerInterval =
-        setInterval(
-          timerTick,
-          100
-        );
-
-      timerTick();
-
-    }
-
-
-    function pauseTimer() {
-
-      if (
-        !timerRunning
-      ) {
-        return;
-      }
-
-      timerRemainingSeconds =
-        Math.max(
-          0,
-          (
-            timerEndTime
-            -
-            Date.now()
-          )
-          /
-          1000
-        );
-
-      stopTimer();
-
-      updateTimerDisplay();
-
-    }
-
-
-    function toggleTimer() {
-
-      if (
-        timerRunning
-      ) {
-
-        pauseTimer();
+        timerModeToggle
+          .textContent =
+          "TIMER";
 
       }
 
       else {
 
-        startTimer();
+        if (
+          stopwatchRunning
+        ) {
+          pauseStopwatch();
+        }
+
+        timeMode =
+          "timer";
+
+        timerDisplay
+          .classList
+          .remove("stopwatch");
+
+        timerDisplay
+          .setAttribute(
+            "contenteditable",
+            "true"
+          );
+
+        timerPresets
+          .classList
+          .remove("hidden");
+
+        timerModeToggle
+          .textContent =
+          "STOPWATCH";
 
       }
-
-    }
-
-
-    function setTimer(minutes) {
-
-      stopTimer();
-
-      timerDefaultSeconds =
-        minutes * 60;
-
-      timerRemainingSeconds =
-        timerDefaultSeconds;
 
       timerTool
         .classList
         .remove("flash");
 
-      updateTimerDisplay();
+      updateStartPauseLabel();
 
+      updateMainTimeDisplay();
     }
-
-
-    function resetTimer() {
-
-      stopTimer();
-
-      timerRemainingSeconds =
-        timerDefaultSeconds;
-
-      timerTool
-        .classList
-        .remove("flash");
-
-      updateTimerDisplay();
-
-    }
-
-
-    function startReadingTimer() {
-
-      stopTimer();
-
-      const now =
-        new Date();
-
-      const readingEnd =
-        new Date();
-
-      readingEnd.setHours(
-        14,
-        17,
-        0,
-        0
-      );
-
-      const difference =
-        (
-          readingEnd
-          -
-          now
-        )
-        /
-        1000;
-
-      timerRemainingSeconds =
-        Math.max(
-          0,
-          difference
-        );
-
-      timerDefaultSeconds =
-        timerRemainingSeconds;
-
-      updateTimerDisplay();
-
-      if (
-        timerRemainingSeconds > 0
-      ) {
-
-        startTimer();
-
-      }
-
-    }
-
 
     document
       .querySelectorAll(
@@ -1921,35 +2049,40 @@
         }
       );
 
-
     timerReadingBtn.addEventListener(
       "click",
       startReadingTimer
     );
 
-
     timerStartPauseBtn.addEventListener(
       "click",
-      toggleTimer
+      toggleClock
     );
-
 
     timerResetBtn.addEventListener(
       "click",
-      resetTimer
+      resetCurrentClock
     );
 
+    timerModeToggle.addEventListener(
+      "click",
+      switchTimeMode
+    );
 
     timerDisplay.addEventListener(
       "focus",
       () => {
 
         if (
+          timeMode !== "timer"
+        ) {
+          return;
+        }
+
+        if (
           timerRunning
         ) {
-
-          pauseTimer();
-
+          pauseCountdown();
         }
 
         const range =
@@ -1971,10 +2104,15 @@
       }
     );
 
-
     timerDisplay.addEventListener(
       "keydown",
       event => {
+
+        if (
+          timeMode !== "timer"
+        ) {
+          return;
+        }
 
         if (
           event.key === "Enter"
@@ -1986,17 +2124,22 @@
 
           timerDisplay.blur();
 
-          startTimer();
+          startCountdown();
 
         }
 
       }
     );
 
-
     timerDisplay.addEventListener(
       "beforeinput",
       event => {
+
+        if (
+          timeMode !== "timer"
+        ) {
+          return;
+        }
 
         if (
           event.inputType === "insertText"
@@ -2007,30 +2150,26 @@
             event.data
           )
         ) {
-
           event.preventDefault();
-
         }
 
       }
     );
-
 
     timerDisplay.addEventListener(
       "blur",
       () => {
 
         if (
+          timeMode === "timer"
+          &&
           !timerRunning
         ) {
-
           parseTypedTimer();
-
         }
 
       }
     );
-
 
     /* NAME PICKER */
 
@@ -2054,7 +2193,6 @@
 
     let nameNoRepeats =
       true;
-
 
     const nameStage =
       document.getElementById(
@@ -2101,7 +2239,6 @@
         "name-skip-indicator"
       );
 
-
     function animateNameFlip() {
 
       nameDisplay
@@ -2113,21 +2250,16 @@
       nameDisplay
         .classList
         .add("flip");
-
     }
-
 
     function pickName() {
 
       if (
         !nameNames.length
       ) {
-
         nameDisplay.textContent =
           "PRESS E TO EDIT NAMES";
-
         return;
-
       }
 
       let base =
@@ -2138,25 +2270,20 @@
       if (
         nameSkipMode
       ) {
-
         base =
           base.filter(
             name =>
               !nameSkipList
                 .includes(name)
           );
-
       }
 
       if (
         !base.length
       ) {
-
         nameDisplay.textContent =
           "RESET TO START AGAIN";
-
         return;
-
       }
 
       const randomIndex =
@@ -2186,18 +2313,13 @@
         if (
           index !== -1
         ) {
-
           namePool.splice(
             index,
             1
           );
-
         }
-
       }
-
     }
-
 
     function resetNamePicker() {
 
@@ -2208,9 +2330,7 @@
         nameNames.length
           ? "CLICK OR PRESS SPACE"
           : "PRESS E TO EDIT NAMES";
-
     }
-
 
     function toggleNameSkip() {
 
@@ -2223,9 +2343,7 @@
           "on",
           nameSkipMode
         );
-
     }
-
 
     function toggleNameRepeats() {
 
@@ -2238,9 +2356,7 @@
           "on",
           !nameNoRepeats
         );
-
     }
-
 
     function toggleNameEditor() {
 
@@ -2262,11 +2378,8 @@
             .join("\n");
 
         nameNamesInput.focus();
-
       }
-
     }
-
 
     function saveNameLists() {
 
@@ -2311,30 +2424,24 @@
       nameEditor
         .classList
         .add("hidden");
-
     }
-
 
     nameStage.addEventListener(
       "click",
       pickName
     );
 
-
     nameResetBtn.addEventListener(
       "click",
       resetNamePicker
     );
-
 
     nameSaveBtn.addEventListener(
       "click",
       saveNameLists
     );
 
-
     resetNamePicker();
-
 
     /* GROUP GENERATOR */
 
@@ -2354,7 +2461,6 @@
 
     };
 
-
     const groupStorageKeys = {
 
       "8AB":
@@ -2364,7 +2470,6 @@
         STORAGE.class8JR
 
     };
-
 
     const groupClassSelect =
       document.getElementById(
@@ -2411,15 +2516,11 @@
         "group-reset"
       );
 
-
     function getCurrentGroupNames() {
-
       return groupClasses[
         groupClassSelect.value
       ];
-
     }
-
 
     function shuffleNames(array) {
 
@@ -2450,13 +2551,10 @@
           copy[j],
           copy[i]
         ];
-
       }
 
       return copy;
-
     }
-
 
     function generateGroups() {
 
@@ -2466,12 +2564,9 @@
       if (
         !names.length
       ) {
-
         groupsContainer.innerHTML =
           '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
-
         return;
-
       }
 
       const size =
@@ -2581,9 +2676,7 @@
 
         }
       );
-
     }
-
 
     function resetGroups() {
 
@@ -2594,9 +2687,7 @@
         names.length
           ? '<div class="group-placeholder">GENERATE GROUPS</div>'
           : '<div class="group-placeholder">PRESS E TO EDIT NAMES</div>';
-
     }
-
 
     function toggleGroupEditor() {
 
@@ -2623,11 +2714,8 @@
           ].join("\n");
 
         groupNamesInput.focus();
-
       }
-
     }
-
 
     function saveGroupNames() {
 
@@ -2663,9 +2751,7 @@
         .add("hidden");
 
       resetGroups();
-
     }
-
 
     groupClassSelect.addEventListener(
       "change",
@@ -2680,24 +2766,20 @@
       }
     );
 
-
     groupGenerateBtn.addEventListener(
       "click",
       generateGroups
     );
-
 
     groupResetBtn.addEventListener(
       "click",
       resetGroups
     );
 
-
     groupSaveBtn.addEventListener(
       "click",
       saveGroupNames
     );
-
 
     /* KEYBOARD SHORTCUTS */
 
@@ -2714,9 +2796,7 @@
           themePanel
             .classList
             .add("hidden");
-
         }
-
 
         if (
           !helpOverlay
@@ -2725,7 +2805,6 @@
         ) {
           return;
         }
-
 
         const typing =
           [
@@ -2740,15 +2819,11 @@
           event.target
             .isContentEditable;
 
-
         if (
           typing
         ) {
           return;
         }
-
-
-        /* TIMER */
 
         if (
           activeTool === "timer"
@@ -2757,28 +2832,19 @@
           if (
             event.code === "Space"
           ) {
-
             event.preventDefault();
-
-            toggleTimer();
-
+            toggleClock();
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
-
-            resetTimer();
-
+            event.preventDefault();
+            resetCurrentClock();
           }
-
         }
-
-
-        /* NAMES */
 
         if (
           activeTool === "names"
@@ -2787,69 +2853,46 @@
           if (
             event.code === "Space"
           ) {
-
             event.preventDefault();
-
             pickName();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "e"
           ) {
-
             event.preventDefault();
-
             toggleNameEditor();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "s"
           ) {
-
             event.preventDefault();
-
             toggleNameSkip();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "n"
           ) {
-
             event.preventDefault();
-
             toggleNameRepeats();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
-
             event.preventDefault();
-
             resetNamePicker();
-
           }
-
         }
-
-
-        /* GROUPS */
 
         if (
           activeTool === "groups"
@@ -2858,49 +2901,38 @@
           if (
             event.code === "Space"
           ) {
-
             event.preventDefault();
-
             generateGroups();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "e"
           ) {
-
             event.preventDefault();
-
             toggleGroupEditor();
-
           }
-
 
           if (
             event.key
               .toLowerCase()
             === "r"
           ) {
-
             event.preventDefault();
-
             resetGroups();
-
           }
-
         }
 
       }
     );
 
-
-    updateTimerDisplay();
+    updateStartPauseLabel();
+    updateMainTimeDisplay();
     resetGroups();
 
   </script>
 
 </body>
 </html>
+```
